@@ -34,16 +34,16 @@ public class Personagem {
         this.tipoPersonagem = tipoPersonagem;
     }
 
-    public PersonagemResponse getResponseDto(PersonagemRequest dto) {
+    public PersonagemResponse getResponseDto() {
         return new PersonagemResponse(
             this.getUuid(),
-            dto.nome(),
-            dto.tipoPersonagem(),
-            this.vida,
-            this.forca,
-            this.defesa,
-            this.agilidade,
-            this.quantidadeDadosAtaque,
-            this.quantidadeFacesDadosAtaque);
+            this.getNome(),
+            this.getTipoPersonagem(),
+            this.getVida(),
+            this.getForca(),
+            this.getDefesa(),
+            this.getAgilidade(),
+            this.getQuantidadeDadosAtaque(),
+            this.getQuantidadeFacesDadosAtaque());
     }
 }

@@ -4,7 +4,6 @@ import br.com.batalharepg.avanade.entities.Personagem;
 
 public abstract class PersonagemFactory {
     public abstract Personagem criarPersonagem(String nome);
-
     public abstract Integer getVida();
     public abstract Integer getForca();
     public abstract Integer getDefesa();

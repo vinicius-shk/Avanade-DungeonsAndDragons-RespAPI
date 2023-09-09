@@ -2,13 +2,19 @@ package br.com.batalharepg.avanade.controller;
 
 import br.com.batalharepg.avanade.dto.request.PersonagemRequest;
 import br.com.batalharepg.avanade.dto.response.PersonagemResponse;
+import br.com.batalharepg.avanade.exceptions.NotFoundException;
 import br.com.batalharepg.avanade.service.PersonagemService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import lombok.AllArgsConstructor;
+
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/personagem")
@@ -17,12 +23,31 @@ public class PersonagemController {
     private final PersonagemService personagemService;
 
     @PostMapping
-    public ResponseEntity<PersonagemResponse> createCharacter(@RequestBody PersonagemRequest body) {
+    public ResponseEntity<PersonagemResponse> criaPersonagem(@RequestBody PersonagemRequest body) {
         try {
             PersonagemResponse response = personagemService.criarPersonagem(body);
             return ResponseEntity.ok(response);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PersonagemResponse>> listaTodosPersonagens() {
+        return ResponseEntity.ok(personagemService.listaTodosPersonagens());
+    }
+
+    @GetMapping("/buscar/nome/{nome}")
+    public ResponseEntity<List<PersonagemResponse>> listaPersonagemPorNome(@PathVariable String nome) {
+        return ResponseEntity.ok(personagemService.listaPersonagemPorNome(nome));
+    }
+
+    @GetMapping("/buscar/id/{uuid}")
+    public ResponseEntity<PersonagemResponse> buscaPersonagemPorUuid(@PathVariable UUID uuid) {
+        try {
+            return ResponseEntity.ok(personagemService.buscaPersonagemPorUuid(uuid));
+        } catch (NotFoundException e) {
+            return ResponseEntity.notFound().build();
         }
     }
 }
