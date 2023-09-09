@@ -6,17 +6,41 @@ import br.com.batalharepg.avanade.factory.TipoPersonagem;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CavaleiroFactory implements PersonagemFactory {
+public class CavaleiroFactory extends PersonagemFactory {
     @Override
     public Personagem criarPersonagem(String nome) {
-        return new Personagem(nome,
-            TipoPersonagem.CAVALEIRO,
-            26,
-            6,
-            8,
-            3,
-            2,
-            6);
+        Personagem personagem = new Personagem(nome, TipoPersonagem.CAVALEIRO);
+        return completaCriacaoPersonagem(personagem);
+    }
+
+    @Override
+    public Integer getVida() {
+        return 26;
+    }
+
+    @Override
+    public Integer getForca() {
+        return 6;
+    }
+
+    @Override
+    public Integer getDefesa() {
+        return 8;
+    }
+
+    @Override
+    public Integer getAgilidade() {
+        return 3;
+    }
+
+    @Override
+    public Integer getQuantidadeDadosAtaque() {
+        return 2;
+    }
+
+    @Override
+    public Integer getQuantidadeFacesDadosAtaque() {
+        return 6;
     }
 
     @Override
