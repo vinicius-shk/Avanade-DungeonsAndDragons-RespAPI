@@ -1,10 +1,12 @@
 package br.com.batalharepg.avanade.dto.response;
 
+import br.com.batalharepg.avanade.factory.TipoPersonagem;
+
 import java.util.UUID;
 
 public record PersonagemResponse(UUID uuid,
                                  String nome,
-                                 String tipoPersonagem,
+                                 TipoPersonagem tipoPersonagem,
                                  Integer vida,
                                  Integer forca,
                                  Integer defesa,

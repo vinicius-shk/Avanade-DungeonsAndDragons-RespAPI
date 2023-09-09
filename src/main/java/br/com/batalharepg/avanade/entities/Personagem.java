@@ -7,7 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,7 +14,6 @@ import java.util.UUID;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class Personagem {
     @Id
@@ -30,16 +28,22 @@ public class Personagem {
     private Integer quantidadeDadosAtaque;
     private Integer quantidadeFacesDadosAtaque;
 
+    public Personagem(String nome,
+                      TipoPersonagem tipoPersonagem) {
+        this.nome = nome;
+        this.tipoPersonagem = tipoPersonagem;
+    }
+
     public PersonagemResponse getResponseDto(PersonagemRequest dto) {
         return new PersonagemResponse(
             this.getUuid(),
             dto.nome(),
             dto.tipoPersonagem(),
-            dto.vida(),
-            dto.forca(),
-            dto.defesa(),
-            dto.agilidade(),
-            dto.quantidadeDadosAtaque(),
-            dto.quantidadeFacesDadosAtaque());
+            this.vida,
+            this.forca,
+            this.defesa,
+            this.agilidade,
+            this.quantidadeDadosAtaque,
+            this.quantidadeFacesDadosAtaque);
     }
 }
