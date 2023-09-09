@@ -6,21 +6,21 @@ import br.com.batalharepg.avanade.factory.TipoPersonagem;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BarbaroFactory implements PersonagemFactory {
+public class LobisomemFactory implements PersonagemFactory {
     @Override
     public Personagem criarPersonagem(String nome) {
         return new Personagem(nome,
-            TipoPersonagem.BARBARO,
-            21,
-            10,
+            TipoPersonagem.LOBISOMEM,
+            34,
+            7,
+            4,
+            7,
             2,
-            5,
-            2,
-            8);
+            4);
     }
 
     @Override
     public TipoPersonagem getTipoPersonagem() {
-        return TipoPersonagem.BARBARO;
+        return TipoPersonagem.LOBISOMEM;
     }
 }
