@@ -7,5 +7,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface PersonagemRepository extends JpaRepository<Personagem, UUID> {
-    public List<Personagem> findByNome(String nome);
+    List<Personagem> findByNome(String nome);
 }

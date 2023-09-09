@@ -1,6 +1,7 @@
 package br.com.batalharepg.avanade.controller;
 
 import br.com.batalharepg.avanade.dto.request.PersonagemRequest;
+import br.com.batalharepg.avanade.dto.request.PersonagemUpdateRequest;
 import br.com.batalharepg.avanade.dto.response.PersonagemResponse;
 import br.com.batalharepg.avanade.exceptions.NotFoundException;
 import br.com.batalharepg.avanade.service.PersonagemService;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,6 +48,17 @@ public class PersonagemController {
     public ResponseEntity<PersonagemResponse> buscaPersonagemPorUuid(@PathVariable UUID uuid) {
         try {
             return ResponseEntity.ok(personagemService.buscaPersonagemPorUuid(uuid));
+        } catch (NotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/atualizar/{uuid}")
+    public ResponseEntity<PersonagemResponse> atualizaPersonagem(@PathVariable UUID uuid,
+                                                                 @RequestBody PersonagemUpdateRequest body) {
+        try {
+            PersonagemResponse response = personagemService.atualizaPersonagem(uuid, body);
+            return ResponseEntity.ok(response);
         } catch (NotFoundException e) {
             return ResponseEntity.notFound().build();
         }

@@ -2,6 +2,7 @@ package br.com.batalharepg.avanade.service;
 
 import br.com.batalharepg.avanade.configuration.PersonagemFactoryConfiguration;
 import br.com.batalharepg.avanade.dto.request.PersonagemRequest;
+import br.com.batalharepg.avanade.dto.request.PersonagemUpdateRequest;
 import br.com.batalharepg.avanade.dto.response.PersonagemResponse;
 import br.com.batalharepg.avanade.entities.Personagem;
 import br.com.batalharepg.avanade.exceptions.NotFoundException;
@@ -40,5 +41,12 @@ public class PersonagemService {
         return personagemRepository.findById(uuid)
             .orElseThrow(() -> new NotFoundException("Personagem não encontrado"))
             .getResponseDto();
+    }
+
+    public PersonagemResponse atualizaPersonagem(UUID uuid, PersonagemUpdateRequest dto) throws NotFoundException {
+        Personagem personagem = personagemRepository.findById(uuid)
+            .orElseThrow(() -> new NotFoundException("Personagem não encontrado"));
+        personagem.setNome(dto.nome());
+        return personagemRepository.save(personagem).getResponseDto();
     }
 }

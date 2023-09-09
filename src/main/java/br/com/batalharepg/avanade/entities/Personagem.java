@@ -1,6 +1,5 @@
 package br.com.batalharepg.avanade.entities;
 
-import br.com.batalharepg.avanade.dto.request.PersonagemRequest;
 import br.com.batalharepg.avanade.dto.response.PersonagemResponse;
 import br.com.batalharepg.avanade.factory.TipoPersonagem;
 import jakarta.persistence.Entity;
