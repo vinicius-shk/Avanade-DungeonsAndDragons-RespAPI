@@ -6,6 +6,7 @@ import br.com.batalharepg.avanade.dto.response.PersonagemResponse;
 import br.com.batalharepg.avanade.exceptions.NotFoundException;
 import br.com.batalharepg.avanade.service.PersonagemService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -59,6 +60,16 @@ public class PersonagemController {
         try {
             PersonagemResponse response = personagemService.atualizaPersonagem(uuid, body);
             return ResponseEntity.ok(response);
+        } catch (NotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/deletar/{uuid}")
+    public ResponseEntity<Void> deletaPersonagem(@PathVariable UUID uuid) {
+        try {
+            personagemService.deletaPersonagem(uuid);
+            return ResponseEntity.ok().build();
         } catch (NotFoundException e) {
             return ResponseEntity.notFound().build();
         }

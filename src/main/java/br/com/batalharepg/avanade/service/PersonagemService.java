@@ -19,6 +19,7 @@ import java.util.UUID;
 public class PersonagemService {
     private final PersonagemRepository personagemRepository;
     private final PersonagemFactoryConfiguration factoryConfiguration;
+    private static final String MENSAGEM_NAO_ENCONTRADO = "Personagem não encontrado";
 
     public PersonagemResponse criarPersonagem(PersonagemRequest dto) {
         PersonagemFactory factory = factoryConfiguration.getFactory(dto.tipoPersonagem());
@@ -39,14 +40,20 @@ public class PersonagemService {
 
     public PersonagemResponse buscaPersonagemPorUuid(UUID uuid) throws NotFoundException {
         return personagemRepository.findById(uuid)
-            .orElseThrow(() -> new NotFoundException("Personagem não encontrado"))
+            .orElseThrow(() -> new NotFoundException(MENSAGEM_NAO_ENCONTRADO))
             .getResponseDto();
     }
 
     public PersonagemResponse atualizaPersonagem(UUID uuid, PersonagemUpdateRequest dto) throws NotFoundException {
         Personagem personagem = personagemRepository.findById(uuid)
-            .orElseThrow(() -> new NotFoundException("Personagem não encontrado"));
+            .orElseThrow(() -> new NotFoundException(MENSAGEM_NAO_ENCONTRADO));
         personagem.setNome(dto.nome());
         return personagemRepository.save(personagem).getResponseDto();
+    }
+
+    public void deletaPersonagem(UUID uuid) throws NotFoundException {
+        Personagem personagem = personagemRepository.findById(uuid)
+            .orElseThrow(() -> new NotFoundException(MENSAGEM_NAO_ENCONTRADO));
+        personagemRepository.delete(personagem);
     }
 }
