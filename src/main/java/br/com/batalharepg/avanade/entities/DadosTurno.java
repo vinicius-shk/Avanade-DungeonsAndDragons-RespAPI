@@ -20,7 +20,7 @@ public class DadosTurno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Integer numeroTurno = 1;
+    private Integer numeroTurno;
     private Integer valorDoAtaqueAtacante = 0;
     private Integer valorDoAtaqueDefensor = 0;
     private Integer valorDaDefesaAtacante = 0;
@@ -36,6 +36,7 @@ public class DadosTurno {
 
     public DadosTurno(Batalha batalha) {
         this.batalha = batalha;
+        this.numeroTurno = batalha.getNumeroTurnoAtual();
         this.vidaAtualAtacante = batalha.getAtacante().getVida();
         this.vidaAtualDefensor = batalha.getDefensor().getVida();
     }
