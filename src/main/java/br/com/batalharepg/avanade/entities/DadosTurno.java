@@ -21,7 +21,6 @@ public class DadosTurno {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer numeroTurno = 1;
-    private Boolean turnoFinalizado = false;
     private Integer valorDoAtaqueAtacante = 0;
     private Integer valorDoAtaqueDefensor = 0;
     private Integer valorDaDefesaAtacante = 0;

@@ -13,16 +13,8 @@ public class DanoFactory extends AcaoFactory {
 
     @Override
     public DadosTurno executarAcao(Personagem atacante, Personagem defensor, DadosTurno dadosTurno) {
-        final var VALOR_ATAQUE_DEFENDIDO = 0;
         if (verificarSeAcaoDeveOcorrer(dadosTurno)) {
-            if (dadosTurno.getValorDoAtaqueAtacante() > dadosTurno.getValorDaDefesaDefensor()) {
-                dadosTurno.setValorDoDanoAtacante(calcularValorTotalAcao(atacante));
-            } else { dadosTurno.setValorDoDanoAtacante(VALOR_ATAQUE_DEFENDIDO); }
-            if (dadosTurno.getValorDoAtaqueDefensor() > dadosTurno.getValorDaDefesaAtacante()) {
-                dadosTurno.setValorDoDanoDefensor(calcularValorTotalAcao(defensor));
-            } else { dadosTurno.setValorDoDanoDefensor(VALOR_ATAQUE_DEFENDIDO); }
-
-            return dadosTurno;
+            return calcularDano(atacante, defensor, dadosTurno);
         }
         throw new EventoJaRealizadoException("Dano já computado");
     }
@@ -30,6 +22,17 @@ public class DanoFactory extends AcaoFactory {
     @Override
     public TipoAcao getTipoAcao() {
         return TipoAcao.DANO;
+    }
+
+    private DadosTurno calcularDano(Personagem atacante, Personagem defensor, DadosTurno dadosTurno) {
+        final var VALOR_ATAQUE_DEFENDIDO = 0;
+        if (dadosTurno.getValorDoAtaqueAtacante() > dadosTurno.getValorDaDefesaDefensor()) {
+            dadosTurno.setValorDoDanoAtacante(calcularValorTotalAcao(atacante));
+        } else { dadosTurno.setValorDoDanoAtacante(VALOR_ATAQUE_DEFENDIDO); }
+        if (dadosTurno.getValorDoAtaqueDefensor() > dadosTurno.getValorDaDefesaAtacante()) {
+            dadosTurno.setValorDoDanoDefensor(calcularValorTotalAcao(defensor));
+        } else { dadosTurno.setValorDoDanoDefensor(VALOR_ATAQUE_DEFENDIDO); }
+        return dadosTurno;
     }
 
     @Override
