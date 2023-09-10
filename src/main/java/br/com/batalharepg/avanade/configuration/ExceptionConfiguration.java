@@ -23,6 +23,6 @@ public class ExceptionConfiguration {
     public ResponseEntity<Object> handleNomeExistenteException(NomeExistenteException e) {
         Map<String, String> response = new HashMap<>();
         response.put("error", e.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 }
