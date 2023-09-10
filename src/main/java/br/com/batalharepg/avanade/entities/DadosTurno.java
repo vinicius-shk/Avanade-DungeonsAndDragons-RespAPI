@@ -10,6 +10,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -30,6 +31,7 @@ public class DadosTurno {
     private Integer vidaAtualDefensor;
     @ManyToOne
     @JoinColumn(name = "batalha_id")
+    @ToString.Exclude
     private Batalha batalha;
 
     public DadosTurno(Batalha batalha) {

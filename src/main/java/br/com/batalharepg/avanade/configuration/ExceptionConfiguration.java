@@ -1,5 +1,6 @@
 package br.com.batalharepg.avanade.configuration;
 
+import br.com.batalharepg.avanade.exceptions.AtaqueJaRealizadoException;
 import br.com.batalharepg.avanade.exceptions.NomeExistenteException;
 import br.com.batalharepg.avanade.exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
@@ -14,15 +15,22 @@ import java.util.Map;
 public class ExceptionConfiguration {
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<Object> handleNotFoundException(NotFoundException e) {
-        Map<String, String> response = new HashMap<>();
-        response.put("error", e.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(montarObjetoDeErro(e.getMessage()));
     }
 
     @ExceptionHandler(NomeExistenteException.class)
     public ResponseEntity<Object> handleNomeExistenteException(NomeExistenteException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(montarObjetoDeErro(e.getMessage()));
+    }
+
+    @ExceptionHandler(AtaqueJaRealizadoException.class)
+    public ResponseEntity<Object> handleAtaqueJaRealizadoException(AtaqueJaRealizadoException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(montarObjetoDeErro(e.getMessage()));
+    }
+
+    private Map<String, String> montarObjetoDeErro(String mensagem) {
         Map<String, String> response = new HashMap<>();
-        response.put("error", e.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        response.put("error", mensagem);
+        return response;
     }
 }

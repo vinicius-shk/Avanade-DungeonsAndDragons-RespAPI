@@ -12,6 +12,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 import java.util.UUID;
@@ -32,9 +33,11 @@ public class Batalha {
     private Personagem defensor;
     private Boolean atacanteVenceuIniciativa;
     private Integer numeroTurnoAtual = 1;
+    private Boolean turnoAtualFinalizado = false;
     private Boolean batalhaFinalizada = false;
     private String nomeVencedor = "Batalha em andamento";
     @OneToMany(mappedBy = "batalha")
+    @ToString.Exclude
     private List<DadosTurno> dadosTurnosList;
 
     public Batalha(Personagem atacante, Personagem defensor, Boolean atacanteVenceuIniciativa) {
@@ -42,6 +45,8 @@ public class Batalha {
         this.defensor = defensor;
         this.atacanteVenceuIniciativa = atacanteVenceuIniciativa;
     }
+
+
 
     public BatalhaResponse getResponseDto() {
         return new BatalhaResponse(
