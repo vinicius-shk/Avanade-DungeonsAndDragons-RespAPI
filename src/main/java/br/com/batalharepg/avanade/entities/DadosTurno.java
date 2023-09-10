@@ -25,8 +25,8 @@ public class DadosTurno {
     private Integer valorDoAtaqueDefensor = 0;
     private Integer valorDaDefesaAtacante = 0;
     private Integer valorDaDefesaDefensor = 0;
-    private Integer valorDoDanoAtacante = 0;
-    private Integer valorDoDanoDefensor = 0;
+    private Integer valorDoDanoAtacante = Integer.MIN_VALUE;
+    private Integer valorDoDanoDefensor = Integer.MIN_VALUE;
     private Integer vidaAtualAtacante;
     private Integer vidaAtualDefensor;
     @ManyToOne
