@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/ataque")
+@RequestMapping("/defesa")
 @RequiredArgsConstructor
-public class AtaqueController {
+public class DefesaController {
     private final CombateService combateService;
 
-    @PatchMapping("/atacar/{uuid}")
-    public ResponseEntity<BatalhaDetalhesResponse> calcularValorTotalAtaquePersonagens(@PathVariable UUID uuid) {
-        return ResponseEntity.ok(combateService.calcularValorTotalAcaoPersonagens(uuid, TipoAcao.ATAQUE));
+    @PatchMapping("/defender/{uuid}")
+    public ResponseEntity<BatalhaDetalhesResponse> calcularValorTotalDefesaPersonagens(@PathVariable UUID uuid) {
+        return ResponseEntity.ok(combateService.calcularValorTotalAcaoPersonagens(uuid, TipoAcao.DEFESA));
     }
 }

@@ -1,7 +1,7 @@
 package br.com.batalharepg.avanade.entities;
 
 import br.com.batalharepg.avanade.dto.response.PersonagemResponse;
-import br.com.batalharepg.avanade.factory.TipoPersonagem;
+import br.com.batalharepg.avanade.factory.personagem.TipoPersonagem;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,8 +1,8 @@
-package br.com.batalharepg.avanade.factory.concretefactories;
+package br.com.batalharepg.avanade.factory.personagem.implementacoes;
 
 import br.com.batalharepg.avanade.entities.Personagem;
-import br.com.batalharepg.avanade.factory.PersonagemFactory;
-import br.com.batalharepg.avanade.factory.TipoPersonagem;
+import br.com.batalharepg.avanade.factory.personagem.PersonagemFactory;
+import br.com.batalharepg.avanade.factory.personagem.TipoPersonagem;
 import org.springframework.stereotype.Component;
 
 @Component
