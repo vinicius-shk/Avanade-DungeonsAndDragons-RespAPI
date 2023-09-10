@@ -17,7 +17,7 @@ import java.util.UUID;
 public class AtaqueController {
     private final AtaqueService ataqueService;
 
-    @PatchMapping("/atacar/atacante/{uuid}")
+    @PatchMapping("/atacar/{uuid}")
     public ResponseEntity<BatalhaDetalhesResponse> calcularValorTotalAtaquePersonagens(@PathVariable UUID uuid) {
         return ResponseEntity.ok(ataqueService.calcularValorTotalAtaquePersonagens(uuid));
     }
