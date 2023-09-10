@@ -2,6 +2,7 @@ package br.com.batalharepg.avanade.controller;
 
 import br.com.batalharepg.avanade.dto.request.CriarBatalhaRequest;
 import br.com.batalharepg.avanade.dto.request.FinalizarBatalhaRequest;
+import br.com.batalharepg.avanade.dto.response.BatalhaDetalhesResponse;
 import br.com.batalharepg.avanade.dto.response.BatalhaResponse;
 import br.com.batalharepg.avanade.service.BatalhaService;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +36,7 @@ public class BatalhaController {
     }
 
     @GetMapping("/{uuid}")
-    public ResponseEntity<BatalhaResponse> buscarBatalhaPorId(@PathVariable UUID uuid) {
+    public ResponseEntity<BatalhaDetalhesResponse> buscarBatalhaPorId(@PathVariable UUID uuid) {
         return ResponseEntity.ok(batalhaService.buscarBatalhaPorUuid(uuid));
     }
 

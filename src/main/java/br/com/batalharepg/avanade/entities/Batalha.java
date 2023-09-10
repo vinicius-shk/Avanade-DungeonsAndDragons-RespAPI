@@ -1,5 +1,6 @@
 package br.com.batalharepg.avanade.entities;
 
+import br.com.batalharepg.avanade.dto.response.BatalhaDetalhesResponse;
 import br.com.batalharepg.avanade.dto.response.BatalhaResponse;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 import java.util.UUID;
@@ -31,9 +33,11 @@ public class Batalha {
     private Personagem defensor;
     private Boolean atacanteVenceuIniciativa;
     private Integer numeroTurnoAtual = 1;
+    private Boolean turnoAtualFinalizado = false;
     private Boolean batalhaFinalizada = false;
     private String nomeVencedor = "Batalha em andamento";
     @OneToMany(mappedBy = "batalha")
+    @ToString.Exclude
     private List<DadosTurno> dadosTurnosList;
 
     public Batalha(Personagem atacante, Personagem defensor, Boolean atacanteVenceuIniciativa) {
@@ -41,6 +45,8 @@ public class Batalha {
         this.defensor = defensor;
         this.atacanteVenceuIniciativa = atacanteVenceuIniciativa;
     }
+
+
 
     public BatalhaResponse getResponseDto() {
         return new BatalhaResponse(
@@ -51,5 +57,17 @@ public class Batalha {
             this.getNumeroTurnoAtual(),
             this.getBatalhaFinalizada(),
             this.getNomeVencedor());
+    }
+
+    public BatalhaDetalhesResponse getDetalhesResponseDto() {
+        return new BatalhaDetalhesResponse(
+            this.getUuid(),
+            this.getAtacante().getNome(),
+            this.getDefensor().getNome(),
+            this.getAtacanteVenceuIniciativa(),
+            this.getNumeroTurnoAtual(),
+            this.getBatalhaFinalizada(),
+            this.getNomeVencedor(),
+            this.getDadosTurnosList().stream().map(DadosTurno::getDadosTurnoDto).toList());
     }
 }
