@@ -1,50 +1,51 @@
-package br.com.batalharepg.avanade.factory.concretefactories;
+package br.com.batalharepg.avanade.factory.personagem.implementacoes;
 
 import br.com.batalharepg.avanade.entities.Personagem;
-import br.com.batalharepg.avanade.factory.PersonagemFactory;
-import br.com.batalharepg.avanade.factory.TipoPersonagem;
+import br.com.batalharepg.avanade.factory.personagem.PersonagemFactory;
+import br.com.batalharepg.avanade.factory.personagem.TipoPersonagem;
 import org.springframework.stereotype.Component;
 
 @Component
-public class GiganteFactory extends PersonagemFactory {
+public class GuerreiroFactory extends PersonagemFactory {
     @Override
     public Personagem criarPersonagem(String nome) {
-        Personagem personagem = new Personagem(nome, TipoPersonagem.GIGANTE);
+        Personagem personagem = new Personagem(nome, TipoPersonagem.GUERREIRO);
         return completaCriacaoPersonagem(personagem);
     }
 
     @Override
     public Integer getVida() {
-        return 34;
+        return 20;
     }
 
     @Override
     public Integer getForca() {
-        return 10;
+        return 7;
     }
 
     @Override
     public Integer getDefesa() {
-        return 4;
+        return 5;
     }
 
     @Override
     public Integer getAgilidade() {
-        return 4;
-    }
-
-    @Override
-    public Integer getQuantidadeDadosAtaque() {
-        return 2;
-    }
-
-    @Override
-    public Integer getQuantidadeFacesDadosAtaque() {
         return 6;
     }
 
     @Override
-    public TipoPersonagem getTipoPersonagem() {
-        return TipoPersonagem.GIGANTE;
+    public Integer getQuantidadeDadosAtaque() {
+        return 1;
     }
+
+    @Override
+    public Integer getQuantidadeFacesDadosAtaque() {
+        return 12;
+    }
+
+    @Override
+    public TipoPersonagem getTipoPersonagem() {
+        return TipoPersonagem.GUERREIRO;
+    }
+
 }

@@ -1,6 +1,6 @@
 package br.com.batalharepg.avanade.configuration;
 
-import br.com.batalharepg.avanade.exceptions.AtaqueJaRealizadoException;
+import br.com.batalharepg.avanade.exceptions.EventoJaRealizadoException;
 import br.com.batalharepg.avanade.exceptions.NomeExistenteException;
 import br.com.batalharepg.avanade.exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
@@ -23,8 +23,8 @@ public class ExceptionConfiguration {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(montarObjetoDeErro(e.getMessage()));
     }
 
-    @ExceptionHandler(AtaqueJaRealizadoException.class)
-    public ResponseEntity<Object> handleAtaqueJaRealizadoException(AtaqueJaRealizadoException e) {
+    @ExceptionHandler(EventoJaRealizadoException.class)
+    public ResponseEntity<Object> handleAtaqueJaRealizadoException(EventoJaRealizadoException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(montarObjetoDeErro(e.getMessage()));
     }
 

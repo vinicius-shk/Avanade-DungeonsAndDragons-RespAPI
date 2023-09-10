@@ -1,7 +1,8 @@
 package br.com.batalharepg.avanade.controller;
 
 import br.com.batalharepg.avanade.dto.response.BatalhaDetalhesResponse;
-import br.com.batalharepg.avanade.service.AtaqueService;
+import br.com.batalharepg.avanade.factory.combate.TipoAcao;
+import br.com.batalharepg.avanade.service.CombateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -15,10 +16,10 @@ import java.util.UUID;
 @RequestMapping("/ataque")
 @RequiredArgsConstructor
 public class AtaqueController {
-    private final AtaqueService ataqueService;
+    private final CombateService combateService;
 
     @PatchMapping("/atacar/{uuid}")
     public ResponseEntity<BatalhaDetalhesResponse> calcularValorTotalAtaquePersonagens(@PathVariable UUID uuid) {
-        return ResponseEntity.ok(ataqueService.calcularValorTotalAtaquePersonagens(uuid));
+        return ResponseEntity.ok(combateService.calcularValorTotalAtaquePersonagens(uuid, TipoAcao.ATAQUE));
     }
 }

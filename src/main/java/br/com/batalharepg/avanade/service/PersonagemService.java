@@ -7,16 +7,16 @@ import br.com.batalharepg.avanade.dto.response.PersonagemResponse;
 import br.com.batalharepg.avanade.entities.Personagem;
 import br.com.batalharepg.avanade.exceptions.NomeExistenteException;
 import br.com.batalharepg.avanade.exceptions.NotFoundException;
-import br.com.batalharepg.avanade.factory.PersonagemFactory;
+import br.com.batalharepg.avanade.factory.personagem.PersonagemFactory;
 import br.com.batalharepg.avanade.repository.PersonagemRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PersonagemService {
     private final PersonagemRepository personagemRepository;
     private final PersonagemFactoryConfiguration factoryConfiguration;
@@ -31,7 +31,7 @@ public class PersonagemService {
             Personagem personagem = factory.criarPersonagem(dto.nome());
             return personagemRepository.save(personagem).getResponseDto();
         }
-        return null;
+        throw new NotFoundException("Tipo de personagem não encontrado");
     }
 
     public List<PersonagemResponse> listaTodosPersonagens() {

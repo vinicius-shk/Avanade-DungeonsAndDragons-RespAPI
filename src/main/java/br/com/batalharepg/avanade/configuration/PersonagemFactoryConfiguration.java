@@ -1,7 +1,7 @@
 package br.com.batalharepg.avanade.configuration;
 
-import br.com.batalharepg.avanade.factory.PersonagemFactory;
-import br.com.batalharepg.avanade.factory.TipoPersonagem;
+import br.com.batalharepg.avanade.factory.personagem.PersonagemFactory;
+import br.com.batalharepg.avanade.factory.personagem.TipoPersonagem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 

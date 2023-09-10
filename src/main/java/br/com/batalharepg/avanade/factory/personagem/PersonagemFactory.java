@@ -1,4 +1,4 @@
-package br.com.batalharepg.avanade.factory;
+package br.com.batalharepg.avanade.factory.personagem;
 
 import br.com.batalharepg.avanade.entities.Personagem;
 

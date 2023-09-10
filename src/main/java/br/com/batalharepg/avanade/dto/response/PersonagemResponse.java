@@ -1,6 +1,6 @@
 package br.com.batalharepg.avanade.dto.response;
 
-import br.com.batalharepg.avanade.factory.TipoPersonagem;
+import br.com.batalharepg.avanade.factory.personagem.TipoPersonagem;
 
 import java.util.UUID;
 
