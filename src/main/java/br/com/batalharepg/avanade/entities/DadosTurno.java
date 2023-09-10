@@ -1,5 +1,6 @@
 package br.com.batalharepg.avanade.entities;
 
+import br.com.batalharepg.avanade.dto.response.DadosTurnoResponse;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,13 +19,37 @@ public class DadosTurno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Integer valorDoAtaque;
-    private Integer valorDaDefesa;
-    private Integer valorDoDano;
+    private Integer numeroTurno = 1;
+    private Integer valorDoAtaqueAtacante = 0;
+    private Integer valorDoAtaqueDefensor = 0;
+    private Integer valorDaDefesaAtacante = 0;
+    private Integer valorDaDefesaDefensor = 0;
+    private Integer valorDoDanoAtacante = 0;
+    private Integer valorDoDanoDefensor = 0;
     private Integer vidaAtualAtacante;
     private Integer vidaAtualDefensor;
     @ManyToOne
     @JoinColumn(name = "batalha_id")
     private Batalha batalha;
+
+    public DadosTurno(Batalha batalha) {
+        this.batalha = batalha;
+        this.vidaAtualAtacante = batalha.getAtacante().getVida();
+        this.vidaAtualDefensor = batalha.getDefensor().getVida();
+    }
+
+    public DadosTurnoResponse getDadosTurnoDto() {
+        return new DadosTurnoResponse(
+            this.getId(),
+            this.getNumeroTurno(),
+            this.getValorDoAtaqueAtacante(),
+            this.getValorDoAtaqueDefensor(),
+            this.getValorDaDefesaAtacante(),
+            this.getValorDaDefesaDefensor(),
+            this.getValorDoDanoAtacante(),
+            this.getValorDoDanoDefensor(),
+            this.getVidaAtualAtacante(),
+            this.getVidaAtualDefensor());
+    }
 
 }

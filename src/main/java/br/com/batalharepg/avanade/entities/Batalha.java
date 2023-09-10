@@ -1,5 +1,6 @@
 package br.com.batalharepg.avanade.entities;
 
+import br.com.batalharepg.avanade.dto.response.BatalhaDetalhesResponse;
 import br.com.batalharepg.avanade.dto.response.BatalhaResponse;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -51,5 +52,17 @@ public class Batalha {
             this.getNumeroTurnoAtual(),
             this.getBatalhaFinalizada(),
             this.getNomeVencedor());
+    }
+
+    public BatalhaDetalhesResponse getDetalhesResponseDto() {
+        return new BatalhaDetalhesResponse(
+            this.getUuid(),
+            this.getAtacante().getNome(),
+            this.getDefensor().getNome(),
+            this.getAtacanteVenceuIniciativa(),
+            this.getNumeroTurnoAtual(),
+            this.getBatalhaFinalizada(),
+            this.getNomeVencedor(),
+            this.getDadosTurnosList().stream().map(DadosTurno::getDadosTurnoDto).toList());
     }
 }
