@@ -20,6 +20,6 @@ public class AtaqueController {
 
     @PatchMapping("/atacar/{uuid}")
     public ResponseEntity<BatalhaDetalhesResponse> calcularValorTotalAtaquePersonagens(@PathVariable UUID uuid) {
-        return ResponseEntity.ok(combateService.calcularValorTotalAtaquePersonagens(uuid, TipoAcao.ATAQUE));
+        return ResponseEntity.ok(combateService.calcularValorTotalAcaoPersonagens(uuid, TipoAcao.ATAQUE));
     }
 }

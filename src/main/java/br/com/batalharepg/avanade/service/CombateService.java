@@ -23,7 +23,7 @@ public class CombateService {
     private final AcaoFactoryConfiguration factoryConfiguration;
 
     @Transactional
-    public BatalhaDetalhesResponse calcularValorTotalAtaquePersonagens(UUID batalhaUuid, TipoAcao tipoAcao) {
+    public BatalhaDetalhesResponse calcularValorTotalAcaoPersonagens(UUID batalhaUuid, TipoAcao tipoAcao) {
         Batalha batalha = obterBatalhaPorid(batalhaUuid);
         DadosTurno dadosTurnoAtual = obterDadosTurnoPorId(batalha);
         AcaoFactory factory = factoryConfiguration.getFactory(tipoAcao);

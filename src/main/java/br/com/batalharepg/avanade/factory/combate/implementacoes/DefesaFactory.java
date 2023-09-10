@@ -14,8 +14,8 @@ public class DefesaFactory extends AcaoFactory {
     @Override
     public DadosTurno executarAcao(Personagem atacante, Personagem defensor, DadosTurno dadosTurno) {
         if (verificarSeAcaoDeveOcorrer(dadosTurno)) {
-            dadosTurno.setValorDoAtaqueAtacante(calcularValorTotalAcao(atacante));
-            dadosTurno.setValorDoAtaqueDefensor(calcularValorTotalAcao(defensor));
+            dadosTurno.setValorDaDefesaAtacante(calcularValorTotalAcao(atacante));
+            dadosTurno.setValorDaDefesaDefensor(calcularValorTotalAcao(defensor));
             return dadosTurno;
         }
         throw new EventoJaRealizadoException("Defesa já realizada");
