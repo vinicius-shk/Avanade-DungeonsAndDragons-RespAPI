@@ -67,11 +67,11 @@ public class BatalhaService {
     }
 
     private Boolean atacanteVenceuIniciativa() {
-        Integer iniciativaAtacante = RolagemDados.rolarDadoIniciativa();
-        Integer iniciativaDefensor = RolagemDados.rolarDadoIniciativa();
+        Integer iniciativaAtacante = RolagemDados.rolarD20();
+        Integer iniciativaDefensor = RolagemDados.rolarD20();
         while (iniciativaAtacante.equals(iniciativaDefensor)) {
-            iniciativaAtacante = RolagemDados.rolarDadoIniciativa();
-            iniciativaDefensor = RolagemDados.rolarDadoIniciativa();
+            iniciativaAtacante = RolagemDados.rolarD20();
+            iniciativaDefensor = RolagemDados.rolarD20();
         }
         return iniciativaAtacante > iniciativaDefensor;
     }

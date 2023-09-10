@@ -16,15 +16,15 @@ public class RolagemDados {
         return resultado;
     }
 
-    public static Integer rolarDadoIniciativa() {
+    public static Integer rolarD20() {
         final var NUMERO_DADOS_INICIATIVA = 1;
         final var LADOS_DADO_INICIATIVA = 20;
         return rolarDados(NUMERO_DADOS_INICIATIVA, LADOS_DADO_INICIATIVA);
     }
 
-    public static Integer rolarDadoAtaque() {
-        final var NUMERO_DADOS_INICIATIVA = 1;
-        final var LADOS_DADO_INICIATIVA = 12;
-        return rolarDados(NUMERO_DADOS_INICIATIVA, LADOS_DADO_INICIATIVA);
+    public static Integer rolarD12() {
+        final var NUMERO_DADOS_ATAQUE_DEFESA = 1;
+        final var LADOS_DADO_ATAQUE_DEFESA = 12;
+        return rolarDados(NUMERO_DADOS_ATAQUE_DEFESA, LADOS_DADO_ATAQUE_DEFESA);
     }
 }

@@ -35,7 +35,7 @@ public class AtaqueFactory extends AcaoFactory {
 
     @Override
     protected Integer calcularValorTotalAcao(Personagem personagem) {
-        Integer valorDadoDeAtaque = RolagemDados.rolarDadoAtaque();
+        Integer valorDadoDeAtaque = RolagemDados.rolarD12();
         return valorDadoDeAtaque + personagem.getForca() + personagem.getAgilidade();
     }
 }
