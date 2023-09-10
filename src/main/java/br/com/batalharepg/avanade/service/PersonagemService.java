@@ -5,6 +5,7 @@ import br.com.batalharepg.avanade.dto.request.PersonagemRequest;
 import br.com.batalharepg.avanade.dto.request.PersonagemUpdateRequest;
 import br.com.batalharepg.avanade.dto.response.PersonagemResponse;
 import br.com.batalharepg.avanade.entities.Personagem;
+import br.com.batalharepg.avanade.exceptions.NomeExistenteException;
 import br.com.batalharepg.avanade.exceptions.NotFoundException;
 import br.com.batalharepg.avanade.factory.PersonagemFactory;
 import br.com.batalharepg.avanade.repository.PersonagemRepository;
@@ -22,6 +23,9 @@ public class PersonagemService {
     private static final String MENSAGEM_NAO_ENCONTRADO = "Personagem não encontrado";
 
     public PersonagemResponse criarPersonagem(PersonagemRequest dto) {
+        personagemRepository.findByNome(dto.nome()).ifPresent(personagem -> {
+            throw new NomeExistenteException("Personagem com este nome já cadastrado");
+        });
         PersonagemFactory factory = factoryConfiguration.getFactory(dto.tipoPersonagem());
         if (factory != null) {
             Personagem personagem = factory.criarPersonagem(dto.nome());
@@ -34,8 +38,10 @@ public class PersonagemService {
         return personagemRepository.findAll().stream().map(Personagem::getResponseDto).toList();
     }
 
-    public List<PersonagemResponse> listaPersonagemPorNome(String nome) {
-        return personagemRepository.findByNome(nome).stream().map(Personagem::getResponseDto).toList();
+    public PersonagemResponse buscaPersonagemPorNome(String nome) {
+        return personagemRepository.findByNome(nome)
+            .orElseThrow(() -> new NotFoundException(MENSAGEM_NAO_ENCONTRADO))
+            .getResponseDto();
     }
 
     public PersonagemResponse buscaPersonagemPorUuid(UUID uuid) throws NotFoundException {
