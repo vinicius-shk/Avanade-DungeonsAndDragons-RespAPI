@@ -42,7 +42,7 @@ public class BatalhaController {
 
     @PatchMapping("/atualizar/{uuid}")
     public ResponseEntity<BatalhaResponse> atualizarTurnoBatalha(@PathVariable UUID uuid) {
-        return ResponseEntity.ok(batalhaService.atualizarTurnoBatalha(uuid));
+        return ResponseEntity.ok(batalhaService.verificarSeBatalhaAcabou(uuid));
     }
 
     @PatchMapping("/finalizar/{uuid}")

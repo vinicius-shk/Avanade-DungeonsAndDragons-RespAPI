@@ -5,6 +5,7 @@ import br.com.batalharepg.avanade.dto.request.FinalizarBatalhaRequest;
 import br.com.batalharepg.avanade.dto.response.BatalhaDetalhesResponse;
 import br.com.batalharepg.avanade.dto.response.BatalhaResponse;
 import br.com.batalharepg.avanade.entities.Batalha;
+import br.com.batalharepg.avanade.entities.DadosTurno;
 import br.com.batalharepg.avanade.entities.Personagem;
 import br.com.batalharepg.avanade.exceptions.NotFoundException;
 import br.com.batalharepg.avanade.repository.BatalhaRepository;
@@ -32,7 +33,7 @@ public class BatalhaService {
             .orElseThrow(() -> new NotFoundException("Defensor não encontrado"));
         Batalha batalha = new Batalha(atacante, defensor, atacanteVenceuIniciativa());
         Batalha batalhaSalva = batalhaRepository.save(batalha);
-        turnoService.criarTurnoInicial(batalhaSalva);
+        turnoService.criarTurno(batalhaSalva);
         return batalhaSalva .getResponseDto();
     }
 
@@ -51,11 +52,19 @@ public class BatalhaService {
         batalhaRepository.deleteByIdWithExceptionIfNotFound(uuid);
     }
 
-    public BatalhaResponse atualizarTurnoBatalha(UUID uuid) {
+    @Transactional
+    public BatalhaResponse verificarSeBatalhaAcabou(UUID uuid) {
         Batalha batalha = batalhaRepository.findById(uuid)
             .orElseThrow(() -> new NotFoundException(BATALHA_NAO_ENCONTRADA));
+        DadosTurno dadosTurnoAtual = obterDadosTurnoPorId(batalha);
+        batalha = verificarSeHouveVencedor(batalha, dadosTurnoAtual);
+        if (Boolean.TRUE.equals(batalha.getBatalhaFinalizada())) {
+            return batalha.getResponseDto();
+        }
         batalha.setNumeroTurnoAtual(batalha.getNumeroTurnoAtual() + 1);
-        return batalhaRepository.save(batalha).getResponseDto();
+        batalhaRepository.save(batalha);
+        turnoService.criarTurno(batalha);
+        return batalha.getResponseDto();
     }
 
     public BatalhaResponse finalizarBatalha(UUID uuid, FinalizarBatalhaRequest finalizarBatalhaRequest) {
@@ -74,5 +83,27 @@ public class BatalhaService {
             iniciativaDefensor = RolagemDados.rolarD20();
         }
         return iniciativaAtacante > iniciativaDefensor;
+    }
+
+    private DadosTurno obterDadosTurnoPorId(Batalha batalha) {
+        return batalha.getDadosTurnosList().stream()
+            .filter(turno -> turno.getNumeroTurno().equals(batalha.getNumeroTurnoAtual()))
+            .findFirst()
+            .orElseThrow(() -> new NotFoundException("Turno não encontrado"));
+    }
+    private Batalha verificarSeHouveVencedor(Batalha batalha, DadosTurno dadosTurno) {
+        if (dadosTurno.getVidaAtualAtacante() <= 0 && dadosTurno.getVidaAtualDefensor() <= 0) {
+            batalha.setBatalhaFinalizada(true);
+            batalha.setNomeVencedor(Boolean.TRUE.equals(batalha.getAtacanteVenceuIniciativa()) ?
+                batalha.getAtacante().getNome() :
+                batalha.getDefensor().getNome());
+            return batalhaRepository.save(batalha);
+        } else if (dadosTurno.getVidaAtualAtacante() <= 0 || dadosTurno.getVidaAtualDefensor() <= 0) {
+            batalha.setBatalhaFinalizada(true);
+            batalha.setNomeVencedor(dadosTurno.getVidaAtualAtacante() <= 0 ? batalha.getDefensor().getNome() :
+                batalha.getAtacante().getNome());
+            return batalhaRepository.save(batalha);
+        }
+        return batalha;
     }
 }
