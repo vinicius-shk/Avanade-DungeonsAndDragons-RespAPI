@@ -32,6 +32,13 @@ public class DanoFactory extends AcaoFactory {
         if (dadosTurno.getValorDoAtaqueDefensor() > dadosTurno.getValorDaDefesaAtacante()) {
             dadosTurno.setValorDoDanoDefensor(calcularValorTotalAcao(defensor));
         } else { dadosTurno.setValorDoDanoDefensor(VALOR_ATAQUE_DEFENDIDO); }
+
+        return aplicarDanoNaVidaAtual(dadosTurno);
+    }
+
+    private DadosTurno aplicarDanoNaVidaAtual(DadosTurno dadosTurno) {
+        dadosTurno.setVidaAtualAtacante(dadosTurno.getVidaAtualAtacante() - dadosTurno.getValorDoDanoDefensor());
+        dadosTurno.setVidaAtualDefensor(dadosTurno.getVidaAtualDefensor() - dadosTurno.getValorDoDanoAtacante());
         return dadosTurno;
     }
 
