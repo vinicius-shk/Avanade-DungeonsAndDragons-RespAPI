@@ -8,6 +8,8 @@ import br.com.batalharepg.avanade.entities.Batalha;
 import br.com.batalharepg.avanade.entities.DadosTurno;
 import br.com.batalharepg.avanade.entities.Personagem;
 import br.com.batalharepg.avanade.exceptions.NotFoundException;
+import br.com.batalharepg.avanade.exceptions.TipoPersonagemDefensorIncorretoException;
+import br.com.batalharepg.avanade.factory.personagem.TipoPersonagem;
 import br.com.batalharepg.avanade.repository.BatalhaRepository;
 import br.com.batalharepg.avanade.repository.PersonagemRepository;
 import br.com.batalharepg.avanade.util.RolagemDados;
@@ -31,6 +33,9 @@ public class BatalhaService {
             .orElseThrow(() -> new NotFoundException("Atacante não encontrado"));
         Personagem defensor = personagemRepository.findByNome(batalhaRequest.nomeMonstroDefensor())
             .orElseThrow(() -> new NotFoundException("Defensor não encontrado"));
+        if (!defensor.getTipoPersonagem().equals(TipoPersonagem.MONSTRO)) {
+            throw new TipoPersonagemDefensorIncorretoException("Defensor não é um monstro");
+        }
         Batalha batalha = new Batalha(atacante, defensor, atacanteVenceuIniciativa());
         Batalha batalhaSalva = batalhaRepository.save(batalha);
         turnoService.criarTurnoInicial(batalhaSalva);
