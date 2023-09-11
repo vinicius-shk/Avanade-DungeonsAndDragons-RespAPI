@@ -5,17 +5,15 @@ import br.com.batalharepg.avanade.dto.response.PersonagemResponse;
 import br.com.batalharepg.avanade.factory.personagem.TipoClassePersonagem;
 import br.com.batalharepg.avanade.service.PersonagemService;
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class DatabaseInitializer {
     private final PersonagemService personagemService;
-
-    public DatabaseInitializer(PersonagemService personagemService) {
-        this.personagemService = personagemService;
-    }
 
     @PostConstruct
     public void init() {
