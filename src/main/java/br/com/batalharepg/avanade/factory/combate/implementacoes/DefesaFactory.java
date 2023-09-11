@@ -28,9 +28,7 @@ public class DefesaFactory extends AcaoFactory {
 
     @Override
     protected boolean verificarSeAcaoDeveOcorrer(DadosTurno dadosTurno) {
-        final var VALOR_DEFAULT_DEFESA = 0;
-        return dadosTurno.getValorDaDefesaAtacante().equals(VALOR_DEFAULT_DEFESA)
-            && dadosTurno.getValorDaDefesaDefensor().equals(VALOR_DEFAULT_DEFESA);
+        return dadosTurno.getValorDaDefesaAtacante() == null && dadosTurno.getValorDaDefesaDefensor() == null;
     }
 
     @Override

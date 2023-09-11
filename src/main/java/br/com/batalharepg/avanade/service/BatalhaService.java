@@ -8,6 +8,7 @@ import br.com.batalharepg.avanade.entities.DadosTurno;
 import br.com.batalharepg.avanade.entities.Personagem;
 import br.com.batalharepg.avanade.exceptions.NotFoundException;
 import br.com.batalharepg.avanade.exceptions.TipoPersonagemDefensorIncorretoException;
+import br.com.batalharepg.avanade.exceptions.TurnoNaoFinalizadoException;
 import br.com.batalharepg.avanade.factory.personagem.TipoPersonagem;
 import br.com.batalharepg.avanade.repository.BatalhaRepository;
 import br.com.batalharepg.avanade.repository.PersonagemRepository;
@@ -63,6 +64,7 @@ public class BatalhaService {
     public BatalhaResponse verificarSeBatalhaAcabou(UUID uuid) {
         Batalha batalha = batalhaRepository.findByIdWithExceptionIfNotFound(uuid);
         DadosTurno dadosTurnoAtual = obterDadosTurnoPorId(batalha);
+        verificarSeTurnoFoiFinalizado(dadosTurnoAtual);
         batalha = verificarSeHouveVencedor(batalha, dadosTurnoAtual);
         if (Boolean.TRUE.equals(batalha.getBatalhaFinalizada())) {
             return batalha.getResponseDto();
@@ -72,6 +74,17 @@ public class BatalhaService {
         turnoService.criarTurnoAdicional(batalha, dadosTurnoAtual);
         return batalha.getResponseDto();
     }
+
+    private void verificarSeTurnoFoiFinalizado(DadosTurno dadosTurno) {
+        if (dadosTurno.getValorDoAtaqueAtacante() == null || dadosTurno.getValorDoAtaqueDefensor() == null) {
+            throw new TurnoNaoFinalizadoException("Ataque não computado, realize a ação de ataque primeiro");
+        } else if (dadosTurno.getValorDoDanoAtacante() == null || dadosTurno.getValorDoDanoDefensor() == null) {
+            throw new TurnoNaoFinalizadoException("Dano não computado, realize a ação de dano primeiro");
+        } else if (dadosTurno.getValorDaDefesaAtacante() == null || dadosTurno.getValorDaDefesaDefensor() == null) {
+            throw new TurnoNaoFinalizadoException("Defesa não computada, realize a ação de defesa primeiro");
+        }
+    }
+
 
     private Boolean atacanteVenceuIniciativa() {
         Integer iniciativaAtacante = RolagemDados.rolarD20();
