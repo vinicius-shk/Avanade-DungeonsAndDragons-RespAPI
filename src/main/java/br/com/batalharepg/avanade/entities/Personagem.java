@@ -1,6 +1,7 @@
 package br.com.batalharepg.avanade.entities;
 
 import br.com.batalharepg.avanade.dto.response.PersonagemResponse;
+import br.com.batalharepg.avanade.factory.personagem.TipoClassePersonagem;
 import br.com.batalharepg.avanade.factory.personagem.TipoPersonagem;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,6 +25,7 @@ public class Personagem {
     @Column(unique = true)
     private String nome;
     private TipoPersonagem tipoPersonagem;
+    private TipoClassePersonagem tipoClassePersonagem;
     private Integer vida;
     private Integer forca;
     private Integer defesa;
@@ -32,9 +34,11 @@ public class Personagem {
     private Integer quantidadeFacesDadosAtaque;
 
     public Personagem(String nome,
-                      TipoPersonagem tipoPersonagem) {
+                      TipoPersonagem tipoPersonagem,
+                      TipoClassePersonagem tipoClassePersonagem) {
         this.nome = nome;
         this.tipoPersonagem = tipoPersonagem;
+        this.tipoClassePersonagem = tipoClassePersonagem;
     }
 
     public PersonagemResponse getResponseDto() {
@@ -42,6 +46,7 @@ public class Personagem {
             this.getUuid(),
             this.getNome(),
             this.getTipoPersonagem(),
+            this.getTipoClassePersonagem(),
             this.getVida(),
             this.getForca(),
             this.getDefesa(),

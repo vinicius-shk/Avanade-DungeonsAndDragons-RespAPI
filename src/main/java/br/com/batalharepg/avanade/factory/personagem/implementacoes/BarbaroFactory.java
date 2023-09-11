@@ -2,6 +2,7 @@ package br.com.batalharepg.avanade.factory.personagem.implementacoes;
 
 import br.com.batalharepg.avanade.entities.Personagem;
 import br.com.batalharepg.avanade.factory.personagem.PersonagemFactory;
+import br.com.batalharepg.avanade.factory.personagem.TipoClassePersonagem;
 import br.com.batalharepg.avanade.factory.personagem.TipoPersonagem;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +12,7 @@ public class BarbaroFactory extends PersonagemFactory {
     @Override
     public Personagem criarPersonagem(String nome) {
 
-        Personagem personagem = new Personagem(nome, TipoPersonagem.BARBARO);
+        Personagem personagem = new Personagem(nome, this.getTipoPersonagem(), this.getTipoClassePersonagem());
         return completaCriacaoPersonagem(personagem);
     }
 
@@ -47,6 +48,9 @@ public class BarbaroFactory extends PersonagemFactory {
 
     @Override
     public TipoPersonagem getTipoPersonagem() {
-        return TipoPersonagem.BARBARO;
+        return TipoPersonagem.HEROI;
     }
+
+    @Override
+    public TipoClassePersonagem getTipoClassePersonagem() { return TipoClassePersonagem.BARBARO; }
 }

@@ -1,7 +1,7 @@
 package br.com.batalharepg.avanade.dto.request;
 
-import br.com.batalharepg.avanade.factory.personagem.TipoPersonagem;
+import br.com.batalharepg.avanade.factory.personagem.TipoClassePersonagem;
 
 public record PersonagemRequest(String nome,
-                                TipoPersonagem tipoPersonagem) {
+                                TipoClassePersonagem tipoClassePersonagem) {
 }

@@ -27,9 +27,9 @@ public class BatalhaService {
     public static final String BATALHA_NAO_ENCONTRADA = "Batalha não encontrada";
 
     public BatalhaResponse criarBatalha(CriarBatalhaRequest batalhaRequest) {
-        Personagem atacante = personagemRepository.findByNome(batalhaRequest.nomeAtacante())
+        Personagem atacante = personagemRepository.findByNome(batalhaRequest.nomeJogadorAtacante())
             .orElseThrow(() -> new NotFoundException("Atacante não encontrado"));
-        Personagem defensor = personagemRepository.findByNome(batalhaRequest.nomeDefensor())
+        Personagem defensor = personagemRepository.findByNome(batalhaRequest.nomeMonstroDefensor())
             .orElseThrow(() -> new NotFoundException("Defensor não encontrado"));
         Batalha batalha = new Batalha(atacante, defensor, atacanteVenceuIniciativa());
         Batalha batalhaSalva = batalhaRepository.save(batalha);
