@@ -1,7 +1,6 @@
 package br.com.batalharepg.avanade.service;
 
 import br.com.batalharepg.avanade.dto.request.CriarBatalhaRequest;
-import br.com.batalharepg.avanade.dto.request.FinalizarBatalhaRequest;
 import br.com.batalharepg.avanade.dto.response.BatalhaDetalhesResponse;
 import br.com.batalharepg.avanade.dto.response.BatalhaResponse;
 import br.com.batalharepg.avanade.entities.Batalha;
@@ -46,7 +45,7 @@ public class BatalhaService {
         return batalhaSalva .getResponseDto();
     }
 
-    public List<BatalhaResponse> buscarBatalha() {
+    public List<BatalhaResponse> buscarTodasBatalhas() {
         return batalhaRepository.findAll().stream().map(Batalha::getResponseDto).toList();
     }
 
@@ -72,13 +71,6 @@ public class BatalhaService {
         batalhaRepository.save(batalha);
         turnoService.criarTurnoAdicional(batalha, dadosTurnoAtual);
         return batalha.getResponseDto();
-    }
-
-    public BatalhaResponse finalizarBatalha(UUID uuid, FinalizarBatalhaRequest finalizarBatalhaRequest) {
-        Batalha batalha = batalhaRepository.findByIdWithExceptionIfNotFound(uuid);
-        batalha.setBatalhaFinalizada(true);
-        batalha.setNomeVencedor(finalizarBatalhaRequest.nomeVencedor());
-        return batalhaRepository.save(batalha).getResponseDto();
     }
 
     private Boolean atacanteVenceuIniciativa() {
