@@ -9,7 +9,7 @@ public class RolagemDados {
     }
 
     public static Integer rolarDados(Integer numeroDados, Integer numeroFaces) {
-        Integer resultado = 0;
+        var resultado = 0;
         for (int i = 0; i < numeroDados; i++) {
             resultado += RANDOM.nextInt(numeroFaces) + 1;
         }
