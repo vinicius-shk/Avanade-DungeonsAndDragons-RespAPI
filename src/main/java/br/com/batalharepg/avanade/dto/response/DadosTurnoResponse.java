@@ -1,5 +1,8 @@
 package br.com.batalharepg.avanade.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public record DadosTurnoResponse(Long id,
                                  Integer numeroTurno,
                                  Integer valorDoAtaqueAtacante,

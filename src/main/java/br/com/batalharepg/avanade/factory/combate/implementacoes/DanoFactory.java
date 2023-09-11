@@ -44,9 +44,7 @@ public class DanoFactory extends AcaoFactory {
 
     @Override
     protected boolean verificarSeAcaoDeveOcorrer(DadosTurno dadosTurno) {
-        final var VALOR_MINIMO_DANO = 0;
-        return dadosTurno.getValorDoDanoAtacante() < VALOR_MINIMO_DANO
-            && dadosTurno.getValorDoDanoDefensor() < VALOR_MINIMO_DANO;
+        return dadosTurno.getValorDoDanoAtacante() == null && dadosTurno.getValorDoDanoDefensor() == null;
     }
 
     @Override

@@ -21,12 +21,12 @@ public class DadosTurno {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer numeroTurno;
-    private Integer valorDoAtaqueAtacante = 0;
-    private Integer valorDoAtaqueDefensor = 0;
-    private Integer valorDaDefesaAtacante = 0;
-    private Integer valorDaDefesaDefensor = 0;
-    private Integer valorDoDanoAtacante = Integer.MIN_VALUE;
-    private Integer valorDoDanoDefensor = Integer.MIN_VALUE;
+    private Integer valorDoAtaqueAtacante = null;
+    private Integer valorDoAtaqueDefensor = null;
+    private Integer valorDaDefesaAtacante = null;
+    private Integer valorDaDefesaDefensor = null;
+    private Integer valorDoDanoAtacante = null;
+    private Integer valorDoDanoDefensor = null;
     private Integer vidaAtualAtacante;
     private Integer vidaAtualDefensor;
     @ManyToOne
