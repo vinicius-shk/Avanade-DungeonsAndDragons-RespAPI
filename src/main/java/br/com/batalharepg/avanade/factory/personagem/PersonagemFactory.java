@@ -22,4 +22,5 @@ public abstract class PersonagemFactory {
     }
 
     public abstract TipoPersonagem getTipoPersonagem();
+    public abstract TipoClassePersonagem getTipoClassePersonagem();
 }

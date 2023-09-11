@@ -2,6 +2,7 @@ package br.com.batalharepg.avanade.factory.personagem.implementacoes;
 
 import br.com.batalharepg.avanade.entities.Personagem;
 import br.com.batalharepg.avanade.factory.personagem.PersonagemFactory;
+import br.com.batalharepg.avanade.factory.personagem.TipoClassePersonagem;
 import br.com.batalharepg.avanade.factory.personagem.TipoPersonagem;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class OrcFactory extends PersonagemFactory {
     @Override
     public Personagem criarPersonagem(String nome) {
-        Personagem personagem = new Personagem(nome, TipoPersonagem.ORC);
+        Personagem personagem = new Personagem(nome, this.getTipoPersonagem(), this.getTipoClassePersonagem());
         return completaCriacaoPersonagem(personagem);
     }
 
@@ -45,6 +46,9 @@ public class OrcFactory extends PersonagemFactory {
 
     @Override
     public TipoPersonagem getTipoPersonagem() {
-        return TipoPersonagem.ORC;
+        return TipoPersonagem.MONSTRO;
     }
+
+    @Override
+    public TipoClassePersonagem getTipoClassePersonagem() { return TipoClassePersonagem.ORC; }
 }

@@ -26,7 +26,7 @@ public class PersonagemService {
         personagemRepository.findByNome(dto.nome()).ifPresent(personagem -> {
             throw new NomeExistenteException("Personagem com este nome já cadastrado");
         });
-        PersonagemFactory factory = factoryConfiguration.getFactory(dto.tipoPersonagem());
+        PersonagemFactory factory = factoryConfiguration.getFactory(dto.tipoClassePersonagem());
         if (factory != null) {
             Personagem personagem = factory.criarPersonagem(dto.nome());
             return personagemRepository.save(personagem).getResponseDto();

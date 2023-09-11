@@ -3,6 +3,7 @@ package br.com.batalharepg.avanade.configuration;
 import br.com.batalharepg.avanade.exceptions.EventoJaRealizadoException;
 import br.com.batalharepg.avanade.exceptions.NomeExistenteException;
 import br.com.batalharepg.avanade.exceptions.NotFoundException;
+import br.com.batalharepg.avanade.exceptions.TipoPersonagemDefensorIncorretoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -25,6 +26,11 @@ public class ExceptionConfiguration {
 
     @ExceptionHandler(EventoJaRealizadoException.class)
     public ResponseEntity<Object> handleAtaqueJaRealizadoException(EventoJaRealizadoException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(montarObjetoDeErro(e.getMessage()));
+    }
+
+    @ExceptionHandler(TipoPersonagemDefensorIncorretoException.class)
+    public ResponseEntity<Object> handleTipoPersonagemDefensorIncorretoException(TipoPersonagemDefensorIncorretoException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(montarObjetoDeErro(e.getMessage()));
     }
 

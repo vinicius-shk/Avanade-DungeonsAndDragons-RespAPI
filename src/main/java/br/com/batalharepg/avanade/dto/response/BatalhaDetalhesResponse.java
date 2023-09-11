@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.UUID;
 
 public record BatalhaDetalhesResponse(UUID uuid,
-                                      String nomeAtacante,
-                                      String nomeDefensor,
-                                      Boolean atacanteVenceuIniciativa,
+                                      String nomeJogadorAtacante,
+                                      String nomeMonstroDefensor,
+                                      Boolean jogadorAtacanteVenceuIniciativa,
                                       Integer numeroTurnoAtual,
                                       Boolean batalhaFinalizada,
                                       String nomeVencedor,
