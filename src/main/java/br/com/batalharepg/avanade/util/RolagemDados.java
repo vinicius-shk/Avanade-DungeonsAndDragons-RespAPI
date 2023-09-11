@@ -1,12 +1,12 @@
 package br.com.batalharepg.avanade.util;
 
+import lombok.NoArgsConstructor;
+
 import java.util.Random;
 
+@NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
 public class RolagemDados {
     public static final Random RANDOM = new Random();
-
-    private RolagemDados() {
-    }
 
     public static Integer rolarDados(Integer numeroDados, Integer numeroFaces) {
         var resultado = 0;
