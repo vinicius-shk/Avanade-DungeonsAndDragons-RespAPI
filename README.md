@@ -52,7 +52,7 @@ Siga os passos abaixo para executar o projeto localmente:
 <details>
 <summary><b>Diagrama Entidade Relacionamento(DER)</b></summary>
 
-![DER-Avanade-Rpg.jpg](..%2F..%2F..%2FPictures%2FDER-Avanade-Rpg.jpg)
+![DER-Avanade-Rpg](https://github.com/vinicius-shk/Avanade-DungeonsAndDragons-RestAPI/assets/102389527/9d9c9695-e779-4529-86d7-5b92c38095dd)
 
 </details>
 
