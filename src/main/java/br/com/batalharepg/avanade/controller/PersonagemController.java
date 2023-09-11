@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +42,7 @@ public class PersonagemController {
         @ApiResponse(responseCode = "404", description = "Tipo de personagem não encontrado",
             content = @Content) })
     @PostMapping
-    public ResponseEntity<PersonagemResponse> criaPersonagem(@RequestBody PersonagemRequest body) {
+    public ResponseEntity<PersonagemResponse> criaPersonagem(@Valid @RequestBody PersonagemRequest body) {
             PersonagemResponse response = personagemService.criarPersonagem(body);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -89,7 +90,7 @@ public class PersonagemController {
             content = @Content) })
     @PatchMapping("/atualizar/{uuid}")
     public ResponseEntity<PersonagemResponse> atualizaPersonagem(@PathVariable UUID uuid,
-                                                                 @RequestBody PersonagemUpdateRequest body) {
+                                                                 @Valid @RequestBody PersonagemUpdateRequest body) {
             PersonagemResponse response = personagemService.atualizaPersonagem(uuid, body);
             return ResponseEntity.ok(response);
     }

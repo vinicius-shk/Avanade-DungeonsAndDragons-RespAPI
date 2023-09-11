@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +42,7 @@ public class BatalhaController {
         @ApiResponse(responseCode = "404", description = "Atacante/Defensor não encontrado",
             content = @Content) })
     @PostMapping
-    public ResponseEntity<BatalhaResponse> criarBatalha(@RequestBody CriarBatalhaRequest criarBatalhaRequest) {
+    public ResponseEntity<BatalhaResponse> criarBatalha(@Valid @RequestBody CriarBatalhaRequest criarBatalhaRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(batalhaService.criarBatalha(criarBatalhaRequest));
     }
 
