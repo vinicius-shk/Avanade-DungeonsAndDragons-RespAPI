@@ -1,0 +1,13 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    url: jdbc:postgresql://localhost:5433/avanadeRpg
+    username: avanadeRpg
+    password: avanadeRpg
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
