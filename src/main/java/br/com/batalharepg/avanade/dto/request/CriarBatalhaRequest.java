@@ -1,4 +1,5 @@
 package br.com.batalharepg.avanade.dto.request;
 
-public record CriarBatalhaRequest(String nomeJogadorAtacante, String nomeMonstroDefensor) {
+public record CriarBatalhaRequest(String nomeJogadorAtacante,
+                                  String nomeMonstroDefensor) {
 }

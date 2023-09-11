@@ -16,4 +16,8 @@ public interface BatalhaRepository extends JpaRepository<Batalha, UUID> {
             throw new NotFoundException("Batalha não encontrada");
         }
     }
+
+    default Batalha findByIdWithExceptionIfNotFound(UUID id) {
+        return findById(id).orElseThrow(() -> new NotFoundException("Batalha não encontrada"));
+    }
 }

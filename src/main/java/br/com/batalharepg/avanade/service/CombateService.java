@@ -37,8 +37,7 @@ public class CombateService {
     }
 
     private Batalha obterBatalhaPorid(UUID uuid) {
-        return batalhaRepository.findById(uuid)
-            .orElseThrow(() -> new NotFoundException("Batalha não encontrada"));
+        return batalhaRepository.findByIdWithExceptionIfNotFound(uuid);
     }
 
     private DadosTurno obterDadosTurnoPorId(Batalha batalha) {

@@ -20,7 +20,6 @@ import java.util.UUID;
 public class PersonagemService {
     private final PersonagemRepository personagemRepository;
     private final PersonagemFactoryConfiguration factoryConfiguration;
-    private static final String MENSAGEM_NAO_ENCONTRADO = "Personagem não encontrado";
 
     public PersonagemResponse criarPersonagem(PersonagemRequest dto) {
         personagemRepository.findByNome(dto.nome()).ifPresent(personagem -> {
@@ -39,27 +38,23 @@ public class PersonagemService {
     }
 
     public PersonagemResponse buscaPersonagemPorNome(String nome) {
-        return personagemRepository.findByNome(nome)
-            .orElseThrow(() -> new NotFoundException(MENSAGEM_NAO_ENCONTRADO))
+        return personagemRepository.findByNomeOrThrowException(nome)
             .getResponseDto();
     }
 
     public PersonagemResponse buscaPersonagemPorUuid(UUID uuid) throws NotFoundException {
-        return personagemRepository.findById(uuid)
-            .orElseThrow(() -> new NotFoundException(MENSAGEM_NAO_ENCONTRADO))
+        return personagemRepository.findByIdWithExceptionIfNotFound(uuid)
             .getResponseDto();
     }
 
     public PersonagemResponse atualizaPersonagem(UUID uuid, PersonagemUpdateRequest dto) throws NotFoundException {
-        Personagem personagem = personagemRepository.findById(uuid)
-            .orElseThrow(() -> new NotFoundException(MENSAGEM_NAO_ENCONTRADO));
+        Personagem personagem = personagemRepository.findByIdWithExceptionIfNotFound(uuid);
         personagem.setNome(dto.nome());
         return personagemRepository.save(personagem).getResponseDto();
     }
 
     public void deletaPersonagem(UUID uuid) throws NotFoundException {
-        Personagem personagem = personagemRepository.findById(uuid)
-            .orElseThrow(() -> new NotFoundException(MENSAGEM_NAO_ENCONTRADO));
+        Personagem personagem = personagemRepository.findByIdWithExceptionIfNotFound(uuid);
         personagemRepository.delete(personagem);
     }
 }

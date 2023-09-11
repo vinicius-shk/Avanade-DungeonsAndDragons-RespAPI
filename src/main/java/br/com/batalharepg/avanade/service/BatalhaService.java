@@ -26,7 +26,6 @@ public class BatalhaService {
     private final BatalhaRepository batalhaRepository;
     private final PersonagemRepository personagemRepository;
     private final TurnoService turnoService;
-    public static final String BATALHA_NAO_ENCONTRADA = "Batalha não encontrada";
 
     public BatalhaResponse criarBatalha(CriarBatalhaRequest batalhaRequest) {
         Personagem defensor;
@@ -53,8 +52,7 @@ public class BatalhaService {
 
     @Transactional
     public BatalhaDetalhesResponse buscarBatalhaPorUuid(UUID uuid) {
-        return batalhaRepository.findById(uuid)
-            .orElseThrow(() -> new NotFoundException(BATALHA_NAO_ENCONTRADA))
+        return batalhaRepository.findByIdWithExceptionIfNotFound(uuid)
             .getDetalhesResponseDto();
     }
 
@@ -64,8 +62,7 @@ public class BatalhaService {
 
     @Transactional
     public BatalhaResponse verificarSeBatalhaAcabou(UUID uuid) {
-        Batalha batalha = batalhaRepository.findById(uuid)
-            .orElseThrow(() -> new NotFoundException(BATALHA_NAO_ENCONTRADA));
+        Batalha batalha = batalhaRepository.findByIdWithExceptionIfNotFound(uuid);
         DadosTurno dadosTurnoAtual = obterDadosTurnoPorId(batalha);
         batalha = verificarSeHouveVencedor(batalha, dadosTurnoAtual);
         if (Boolean.TRUE.equals(batalha.getBatalhaFinalizada())) {
@@ -78,8 +75,7 @@ public class BatalhaService {
     }
 
     public BatalhaResponse finalizarBatalha(UUID uuid, FinalizarBatalhaRequest finalizarBatalhaRequest) {
-        Batalha batalha = batalhaRepository.findById(uuid)
-            .orElseThrow(() -> new NotFoundException(BATALHA_NAO_ENCONTRADA));
+        Batalha batalha = batalhaRepository.findByIdWithExceptionIfNotFound(uuid);
         batalha.setBatalhaFinalizada(true);
         batalha.setNomeVencedor(finalizarBatalhaRequest.nomeVencedor());
         return batalhaRepository.save(batalha).getResponseDto();
