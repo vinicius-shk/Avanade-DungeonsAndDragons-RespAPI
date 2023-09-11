@@ -41,6 +41,13 @@ public class DadosTurno {
         this.vidaAtualDefensor = batalha.getDefensor().getVida();
     }
 
+    public DadosTurno (Batalha batalha, DadosTurno turnoAnterior) {
+        this.batalha = batalha;
+        this.numeroTurno = batalha.getNumeroTurnoAtual();
+        this.vidaAtualAtacante = turnoAnterior.getVidaAtualAtacante();
+        this.vidaAtualDefensor = turnoAnterior.getVidaAtualDefensor();
+    }
+
     public DadosTurnoResponse getDadosTurnoDto() {
         return new DadosTurnoResponse(
             this.getId(),

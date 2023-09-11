@@ -33,7 +33,7 @@ public class BatalhaService {
             .orElseThrow(() -> new NotFoundException("Defensor não encontrado"));
         Batalha batalha = new Batalha(atacante, defensor, atacanteVenceuIniciativa());
         Batalha batalhaSalva = batalhaRepository.save(batalha);
-        turnoService.criarTurno(batalhaSalva);
+        turnoService.criarTurnoInicial(batalhaSalva);
         return batalhaSalva .getResponseDto();
     }
 
@@ -63,7 +63,7 @@ public class BatalhaService {
         }
         batalha.setNumeroTurnoAtual(batalha.getNumeroTurnoAtual() + 1);
         batalhaRepository.save(batalha);
-        turnoService.criarTurno(batalha);
+        turnoService.criarTurnoAdicional(batalha, dadosTurnoAtual);
         return batalha.getResponseDto();
     }
 

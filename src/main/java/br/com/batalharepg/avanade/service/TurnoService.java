@@ -11,7 +11,11 @@ import org.springframework.stereotype.Service;
 public class TurnoService {
     private final DadosTurnoRepository turnoRepository;
 
-    public void criarTurno(Batalha batalha) {
+    public void criarTurnoInicial(Batalha batalha) {
         turnoRepository.save(new DadosTurno(batalha));
+    }
+
+    public void criarTurnoAdicional(Batalha batalha, DadosTurno turnoAnterior) {
+        turnoRepository.save(new DadosTurno(batalha, turnoAnterior));
     }
 }
