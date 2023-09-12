@@ -110,6 +110,13 @@ Siga os passos abaixo para executar o projeto localmente:
 </details>
 
 <details>
+<summary><b>Cobertura de Testes</b></summary>
+
+![Screenshot from 2023-09-12 17-48-59](https://github.com/vinicius-shk/Avanade-DungeonsAndDragons-RestAPI/assets/102389527/1b2a8807-f43f-456c-89db-5afd9516cccb)
+
+</details>
+
+<details>
 <summary><b>Documentação</b></summary>
 
 A documentação da API pode ser acessada pelo link [Documentação da API](http://localhost:8080/swagger-ui/index.html)
