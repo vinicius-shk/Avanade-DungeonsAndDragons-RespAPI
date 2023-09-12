@@ -1,6 +1,6 @@
 package br.com.batalharepg.avanade.controller;
 
-import br.com.batalharepg.avanade.dto.response.BatalhaDetalhesResponse;
+import br.com.batalharepg.avanade.dto.response.DadosTurnoResponse;
 import br.com.batalharepg.avanade.factory.combate.TipoAcao;
 import br.com.batalharepg.avanade.service.CombateService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,13 +27,13 @@ public class AtaqueController {
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "calculado com sucesso",
             content = { @Content(mediaType = "application/json",
-                schema = @Schema(implementation = BatalhaDetalhesResponse.class)) }),
+                schema = @Schema(implementation = DadosTurnoResponse.class)) }),
         @ApiResponse(responseCode = "400", description = "Ataque já realizado",
             content = @Content),
         @ApiResponse(responseCode = "404", description = "batalha/tipo de acao nao encontrado",
             content = @Content) })
     @PatchMapping("/{batalhaUuid}")
-    public ResponseEntity<BatalhaDetalhesResponse> calcularValorTotalAtaquePersonagens(@PathVariable UUID batalhaUuid) {
+    public ResponseEntity<DadosTurnoResponse> calcularValorTotalAtaquePersonagens(@PathVariable UUID batalhaUuid) {
         return ResponseEntity.ok(combateService.calcularValorTotalAcaoPersonagens(batalhaUuid, TipoAcao.ATAQUE));
     }
 }
