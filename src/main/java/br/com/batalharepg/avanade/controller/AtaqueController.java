@@ -32,7 +32,7 @@ public class AtaqueController {
             content = @Content),
         @ApiResponse(responseCode = "404", description = "batalha/tipo de acao nao encontrado",
             content = @Content) })
-    @PatchMapping("/atacar/{batalhaUuid}")
+    @PatchMapping("/{batalhaUuid}")
     public ResponseEntity<BatalhaDetalhesResponse> calcularValorTotalAtaquePersonagens(@PathVariable UUID batalhaUuid) {
         return ResponseEntity.ok(combateService.calcularValorTotalAcaoPersonagens(batalhaUuid, TipoAcao.ATAQUE));
     }

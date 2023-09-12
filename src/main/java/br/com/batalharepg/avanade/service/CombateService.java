@@ -4,6 +4,7 @@ import br.com.batalharepg.avanade.configuration.AcaoFactoryConfiguration;
 import br.com.batalharepg.avanade.dto.response.BatalhaDetalhesResponse;
 import br.com.batalharepg.avanade.entities.Batalha;
 import br.com.batalharepg.avanade.entities.DadosTurno;
+import br.com.batalharepg.avanade.exceptions.EventoJaRealizadoException;
 import br.com.batalharepg.avanade.exceptions.NotFoundException;
 import br.com.batalharepg.avanade.factory.combate.AcaoFactory;
 import br.com.batalharepg.avanade.factory.combate.TipoAcao;
@@ -25,6 +26,9 @@ public class CombateService {
     @Transactional
     public BatalhaDetalhesResponse calcularValorTotalAcaoPersonagens(UUID batalhaUuid, TipoAcao tipoAcao) {
         Batalha batalha = obterBatalhaPorid(batalhaUuid);
+        if (Boolean.TRUE.equals(batalha.getBatalhaFinalizada())) {
+            throw new EventoJaRealizadoException("Batalha já finalizada");
+        }
         DadosTurno dadosTurnoAtual = obterDadosTurnoPorId(batalha);
         AcaoFactory factory = factoryConfiguration.getFactory(tipoAcao);
         if (factory != null) {

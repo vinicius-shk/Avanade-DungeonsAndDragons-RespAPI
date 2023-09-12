@@ -76,7 +76,7 @@ public class BatalhaController {
         @ApiResponse(responseCode = "404", description = "Batalha não encontrada",
             content = @Content),
         @ApiResponse(responseCode = "400",
-            description = "Ação de Ataque/Defesa/Dano não computado, realize a ação primeiro",
+            description = "Batalha finalizada / Ação de Ataque/Defesa/Dano não computado, realize a ação primeiro",
             content = @Content) })
     @PatchMapping("/atualizar/{uuid}")
     public ResponseEntity<BatalhaResponse> atualizarTurnoBatalha(@PathVariable UUID uuid) {

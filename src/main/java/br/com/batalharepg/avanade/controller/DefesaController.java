@@ -32,7 +32,7 @@ public class DefesaController {
             content = @Content),
         @ApiResponse(responseCode = "404", description = "batalha/tipo de ação nao encontrado",
             content = @Content) })
-    @PatchMapping("/defender/{uuid}")
+    @PatchMapping("/{uuid}")
     public ResponseEntity<BatalhaDetalhesResponse> calcularValorTotalDefesaPersonagens(@PathVariable UUID uuid) {
         return ResponseEntity.ok(combateService.calcularValorTotalAcaoPersonagens(uuid, TipoAcao.DEFESA));
     }
