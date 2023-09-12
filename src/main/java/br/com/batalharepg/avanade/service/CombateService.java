@@ -40,7 +40,7 @@ public class CombateService {
         throw new NotFoundException("Tipo de ação não encontrado");
     }
 
-    private Batalha obterBatalhaPorid(UUID uuid) {
+    protected Batalha obterBatalhaPorid(UUID uuid) {
         return batalhaRepository.findByIdWithExceptionIfNotFound(uuid);
     }
 

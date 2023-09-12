@@ -20,7 +20,7 @@ public class HistoricoService {
     }
 
     @Transactional
-    public BatalhaResumoResponse listarTodosTurnosExistentesPorBatalha(UUID uuid) {
+    public BatalhaResumoResponse buscarHistoricoResumidoDeBatalha(UUID uuid) {
         return batalhaRepository.findByIdWithExceptionIfNotFound(uuid).getResumoResponseDto();
     }
 }

@@ -67,7 +67,7 @@ public class BatalhaService {
         if (Boolean.TRUE.equals(batalha.getBatalhaFinalizada())) {
             throw new EventoJaRealizadoException("Batalha já finalizada");
         }
-        DadosTurno dadosTurnoAtual = obterDadosTurnoPorId(batalha);
+        DadosTurno dadosTurnoAtual = obterTurnoDeMaiorNumero(batalha);
         verificarSeTurnoFoiFinalizado(dadosTurnoAtual);
         batalha = verificarSeHouveVencedor(batalha, dadosTurnoAtual);
         if (Boolean.TRUE.equals(batalha.getBatalhaFinalizada())) {
@@ -100,7 +100,7 @@ public class BatalhaService {
         return iniciativaAtacante > iniciativaDefensor;
     }
 
-    private DadosTurno obterDadosTurnoPorId(Batalha batalha) {
+    private DadosTurno obterTurnoDeMaiorNumero(Batalha batalha) {
         return batalha.getDadosTurnosList().stream()
             .filter(turno -> turno.getNumeroTurno().equals(batalha.getNumeroTurnoAtual()))
             .findFirst()
