@@ -50,6 +50,59 @@ Siga os passos abaixo para executar o projeto localmente:
 </details>
 
 <details>
+<summary><b>Como Utilizar a API</b></summary>
+
+1. Criem um personagem usando o endpoint `POST /personagem`:
+    
+   ```json
+   {
+     "nome": "string",
+     "tipoClassePersonagem": "GUERREIRO"
+   }
+   ```
+   O campo `tipoClassePersonagem` pode ser `GUERREIRO`, `BARBARO`, `CAVALEIRO`, `ORC`, `GIGANTE` ou `LOBISOMEM`.
+2. Crie uma batalha usando o endpoint `POST /batalha`:
+    
+   ```json
+   {
+     "nomeJogadorAtacante": "string",
+     "nomeMonstroDefensor": "string"
+   }
+   ```
+   O campo `nomeMosnstroDefensor` é opcional. Se não for informado, um monstro aleatório será selecionado.
+
+3. Realize um ataque usando o endpoint `PATCH /ataque/{uuidBatalha}`:
+    - O campo `uuidBatalha` é o UUID da batalha que você deseja realizar os ataques.
+    - O dados de ataque são rolados e o valor é calculado automaticamente para ambos personagens.
+    - Após o ataque ser realizado, não é possivel realizar outro ataque no mesmo turno.
+    - Após o ataque ser realizado, siga para a defesa dos personagens.
+
+4. Realize uma defesa usando o endpoint `PATCH /defesa/{uuidBatalha}`:
+    - O campo `uuidBatalha` é o UUID da batalha que você deseja realizar as defesas.
+    - O dados de defesa são rolados e o valor é calculado automaticamente para ambos personagens.
+    - Após a defesa ser realizada, não é possível realizar outra defesa no mesmo turno.
+    - Após a defesa ser realizada, siga para o dano dos personagens.
+
+5. Realize o dano usando o endpoint `PATCH /dano/{uuidBatalha}`:
+    - O campo `uuidBatalha` é o UUID da batalha que você deseja realizar o dano.
+    - O dano é calculado automaticamente para ambos personagens e a vida é atualizada.
+    - Após o dano ser realizado, não é possível realizar outro dano no mesmo turno.
+    - Após o dano ser realizado, siga para verificação do status da batalha.
+
+6. Verifique se a batalha acabou e houve um vencedor usando o endpoint `PATCH /batalha/atualizar/{uuidBatalha}`:
+    - O campo `uuidBatalha` é o UUID da batalha que você deseja verificar o status.
+    - Se a batalha não acabou, o turno é atualizado e o próximo turno é iniciado.
+    - Se a batalha acabou, o vencedor é definido e a batalha é finalizada.
+    - Após a batalha ser finalizada, não é possível realizar mais nenhuma ação.
+
+7. Consulte o histórico de batalhas usando o endpoint `GET /historico/completo/{uuidBatalha}`:
+    - O campo `uuidBatalha` é o UUID da batalha que você deseja consultar o histórico.
+    - O histórico é retornado em ordem cronológica de turno.
+    - Para um histórico resumido, utilize o endponit `GET /historico/resumso/{uuidBatalha}`. 
+
+</details>
+
+<details>
 <summary><b>Diagrama Entidade Relacionamento(DER)</b></summary>
 
 ![DER-Avanade-Rpg.jpg](..%2F..%2F..%2FPictures%2FDER-Avanade-Rpg.jpg)

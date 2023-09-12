@@ -1,30 +1,26 @@
 package br.com.batalharepg.avanade.service;
 
-import br.com.batalharepg.avanade.dto.response.DadosTurnoResponse;
-import br.com.batalharepg.avanade.entities.DadosTurno;
-import br.com.batalharepg.avanade.repository.DadosTurnoRepository;
+import br.com.batalharepg.avanade.dto.response.BatalhaDetalhesResponse;
+import br.com.batalharepg.avanade.dto.response.BatalhaResumoResponse;
+import br.com.batalharepg.avanade.repository.BatalhaRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class HistoricoService {
-    private final DadosTurnoRepository dadosTurnoRepository;
+    private final BatalhaRepository batalhaRepository;
 
-    public List<DadosTurnoResponse> listarTodosTurnosExistentes() {
-        return dadosTurnoRepository.findAllByOrderByBatalhaUuidAscNumeroTurnoAsc()
-                .stream()
-                .map(DadosTurno::getDadosTurnoDto)
-                .toList();
+    @Transactional
+    public BatalhaDetalhesResponse buscarHistoricoDetalhadoDeBatalha(UUID uuid) {
+        return batalhaRepository.findByIdWithExceptionIfNotFound(uuid).getDetalhesResponseDto();
     }
 
-    public List<DadosTurnoResponse> listarTodosTurnosExistentesPorBatalha(UUID uuid) {
-        return dadosTurnoRepository.findAllByBatalhaUuidOrderByNumeroTurnoAsc(uuid)
-                .stream()
-                .map(DadosTurno::getDadosTurnoDto)
-                .toList();
+    @Transactional
+    public BatalhaResumoResponse listarTodosTurnosExistentesPorBatalha(UUID uuid) {
+        return batalhaRepository.findByIdWithExceptionIfNotFound(uuid).getResumoResponseDto();
     }
 }

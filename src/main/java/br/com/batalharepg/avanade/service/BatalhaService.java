@@ -6,6 +6,7 @@ import br.com.batalharepg.avanade.dto.response.BatalhaResponse;
 import br.com.batalharepg.avanade.entities.Batalha;
 import br.com.batalharepg.avanade.entities.DadosTurno;
 import br.com.batalharepg.avanade.entities.Personagem;
+import br.com.batalharepg.avanade.exceptions.EventoJaRealizadoException;
 import br.com.batalharepg.avanade.exceptions.NotFoundException;
 import br.com.batalharepg.avanade.exceptions.TipoPersonagemDefensorIncorretoException;
 import br.com.batalharepg.avanade.exceptions.TurnoNaoFinalizadoException;
@@ -63,6 +64,9 @@ public class BatalhaService {
     @Transactional
     public BatalhaResponse verificarSeBatalhaAcabou(UUID uuid) {
         Batalha batalha = batalhaRepository.findByIdWithExceptionIfNotFound(uuid);
+        if (Boolean.TRUE.equals(batalha.getBatalhaFinalizada())) {
+            throw new EventoJaRealizadoException("Batalha já finalizada");
+        }
         DadosTurno dadosTurnoAtual = obterDadosTurnoPorId(batalha);
         verificarSeTurnoFoiFinalizado(dadosTurnoAtual);
         batalha = verificarSeHouveVencedor(batalha, dadosTurnoAtual);
