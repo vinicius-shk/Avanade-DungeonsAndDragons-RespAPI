@@ -40,6 +40,6 @@ public class HistoricoController {
                 schema = @Schema(implementation = BatalhaResumoResponse.class)) })})
     @GetMapping("/resumo/{uuid}")
     public ResponseEntity<BatalhaResumoResponse> buscarHistoricoResumidoDeBatalha(@PathVariable UUID uuid) {
-        return ResponseEntity.ok(historicoService.listarTodosTurnosExistentesPorBatalha((uuid)));
+        return ResponseEntity.ok(historicoService.buscarHistoricoResumidoDeBatalha((uuid)));
     }
 }
