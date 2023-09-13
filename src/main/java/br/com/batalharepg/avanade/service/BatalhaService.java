@@ -15,14 +15,14 @@ import br.com.batalharepg.avanade.repository.BatalhaRepository;
 import br.com.batalharepg.avanade.repository.PersonagemRepository;
 import br.com.batalharepg.avanade.util.RolagemDados;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class BatalhaService {
     private final BatalhaRepository batalhaRepository;
     private final PersonagemRepository personagemRepository;
