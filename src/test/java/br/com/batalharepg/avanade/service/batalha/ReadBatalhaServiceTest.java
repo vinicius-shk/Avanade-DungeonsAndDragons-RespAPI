@@ -37,23 +37,4 @@ class ReadBatalhaServiceTest {
         Mockito.verify(batalhaRepository, Mockito.times(1)).findAll();
         Assertions.assertEquals(2, batalhaResponse.size());
     }
-
-    @Test
-    void deveriaBuscarBatalhaPorIdComSucesso() {
-        Personagem atacante = new CavaleiroFactory().criarPersonagem("Jogador 1");
-        Personagem defensor = new OrcFactory().criarPersonagem("Monstro 1");
-        Batalha batalha = new Batalha(atacante, defensor, true);
-        DadosTurno turnoInicial = new DadosTurno(batalha);
-        batalha.setDadosTurnosList(List.of(turnoInicial));
-        Mockito.when(batalhaRepository.findByIdWithExceptionIfNotFound(ArgumentMatchers.any())).thenReturn(batalha);
-
-        BatalhaDetalhesResponse batalhaResponse = readBatalhaService.buscarBatalhaPorUuid(ArgumentMatchers.any());
-
-        Mockito.verify(batalhaRepository, Mockito.times(1)).findByIdWithExceptionIfNotFound(ArgumentMatchers.any());
-        Assertions.assertEquals("Jogador 1", batalhaResponse.nomeJogadorAtacante());
-        Assertions.assertEquals("Monstro 1", batalhaResponse.nomeMonstroDefensor());
-        Assertions.assertTrue(batalhaResponse.jogadorAtacanteVenceuIniciativa());
-        Assertions.assertEquals(1, batalhaResponse.numeroTurnoAtual());
-        Assertions.assertFalse(batalhaResponse.batalhaFinalizada());
-    }
 }

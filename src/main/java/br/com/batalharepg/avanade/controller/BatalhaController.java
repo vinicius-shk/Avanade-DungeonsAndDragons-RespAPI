@@ -1,7 +1,6 @@
 package br.com.batalharepg.avanade.controller;
 
 import br.com.batalharepg.avanade.dto.request.CriarBatalhaRequest;
-import br.com.batalharepg.avanade.dto.response.BatalhaDetalhesResponse;
 import br.com.batalharepg.avanade.dto.response.BatalhaResponse;
 import br.com.batalharepg.avanade.service.batalha.CreateBatalhaService;
 import br.com.batalharepg.avanade.service.batalha.DeleteBatalhaService;
@@ -60,18 +59,6 @@ public class BatalhaController {
     @GetMapping
     public ResponseEntity<List<BatalhaResponse>> buscarTodasBatalhas() {
         return ResponseEntity.ok(readBatalhaService.buscarTodasBatalhas());
-    }
-
-    @Operation(summary = "Busca uma batalha por id")
-    @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "encontrado com sucesso",
-            content = { @Content(mediaType = "application/json",
-                schema = @Schema(implementation = BatalhaDetalhesResponse.class)) }),
-        @ApiResponse(responseCode = "404", description = "Batalha não encontrada",
-            content = @Content) })
-    @GetMapping("/{uuid}")
-    public ResponseEntity<BatalhaDetalhesResponse> buscarBatalhaPorId(@PathVariable UUID uuid) {
-        return ResponseEntity.ok(readBatalhaService.buscarBatalhaPorUuid(uuid));
     }
 
     @Operation(summary = "Verifica se houve vencedor e encerra batalha ou abre novo turno")
