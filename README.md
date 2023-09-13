@@ -36,16 +36,23 @@ Siga os passos abaixo para executar o projeto localmente:
 
 2. Abra o projeto em sua IDE de preferência.
 
-3. Atualize as dependências do Maven.
+3. Certifique-se que esteja na branch main do projeto. Ela contém a versão final do projeto:
 
-4. No terminal, navegue até a raiz do projeto e execute o seguinte comando para iniciar o banco de dados em Docker:
+  ```bash
+  git checkout main
+  ```
+
+4. Atualize as dependências do Maven.
+
+5. No terminal, navegue até a raiz do projeto e execute o seguinte comando para iniciar o banco de dados em Docker:
 
    ```bash
    docker-compose up -d
    ```
 
    Isso inicializará o banco de dados em um contêiner Docker.
-5. Inicie o projeto em sua IDE de preferência.
+   
+7. Inicie o projeto em sua IDE de preferência.
 
 </details>
 
