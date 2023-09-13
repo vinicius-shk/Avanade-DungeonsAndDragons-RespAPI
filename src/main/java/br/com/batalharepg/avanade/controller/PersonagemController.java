@@ -3,7 +3,10 @@ package br.com.batalharepg.avanade.controller;
 import br.com.batalharepg.avanade.dto.request.PersonagemRequest;
 import br.com.batalharepg.avanade.dto.request.PersonagemUpdateRequest;
 import br.com.batalharepg.avanade.dto.response.PersonagemResponse;
-import br.com.batalharepg.avanade.service.PersonagemService;
+import br.com.batalharepg.avanade.service.personagem.CreatePersonagemService;
+import br.com.batalharepg.avanade.service.personagem.DeletePersonagemService;
+import br.com.batalharepg.avanade.service.personagem.GetPersonagemService;
+import br.com.batalharepg.avanade.service.personagem.UpdatePersonagemService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -30,7 +33,10 @@ import java.util.UUID;
 @RequestMapping("/personagem")
 @RequiredArgsConstructor
 public class PersonagemController {
-    private final PersonagemService personagemService;
+    private final GetPersonagemService getPersonagemService;
+    private final CreatePersonagemService createPersonagemService;
+    private final UpdatePersonagemService updatePersonagemService;
+    private final DeletePersonagemService deletePersonagemService;
 
     @Operation(summary = "Cria um personagem")
     @ApiResponses(value = {
@@ -43,7 +49,7 @@ public class PersonagemController {
             content = @Content) })
     @PostMapping
     public ResponseEntity<PersonagemResponse> criaPersonagem(@Valid @RequestBody PersonagemRequest body) {
-            PersonagemResponse response = personagemService.criarPersonagem(body);
+            PersonagemResponse response = createPersonagemService.criarPersonagem(body);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
@@ -54,7 +60,7 @@ public class PersonagemController {
                 array = @ArraySchema(schema = @Schema(implementation = PersonagemResponse.class))) })})
     @GetMapping
     public ResponseEntity<List<PersonagemResponse>> listaTodosPersonagens() {
-        return ResponseEntity.ok(personagemService.listaTodosPersonagens());
+        return ResponseEntity.ok(getPersonagemService.listaTodosPersonagens());
     }
 
     @Operation(summary = "Busca um personagem pelo nome")
@@ -66,7 +72,7 @@ public class PersonagemController {
             content = @Content) })
     @GetMapping("/buscar/nome/{nome}")
     public ResponseEntity<PersonagemResponse> buscaPersonagemPorNome(@PathVariable String nome) {
-            return ResponseEntity.ok(personagemService.buscaPersonagemPorNome(nome));
+            return ResponseEntity.ok(getPersonagemService.buscaPersonagemPorNome(nome));
     }
 
     @Operation(summary = "Busca um personagem pelo id")
@@ -78,7 +84,7 @@ public class PersonagemController {
             content = @Content) })
     @GetMapping("/buscar/id/{uuid}")
     public ResponseEntity<PersonagemResponse> buscaPersonagemPorUuid(@PathVariable UUID uuid) {
-            return ResponseEntity.ok(personagemService.buscaPersonagemPorUuid(uuid));
+            return ResponseEntity.ok(getPersonagemService.buscaPersonagemPorUuid(uuid));
     }
 
     @Operation(summary = "Atualiza um personagem pelo id")
@@ -91,7 +97,7 @@ public class PersonagemController {
     @PatchMapping("/atualizar/{uuid}")
     public ResponseEntity<PersonagemResponse> atualizaPersonagem(@PathVariable UUID uuid,
                                                                  @Valid @RequestBody PersonagemUpdateRequest body) {
-            PersonagemResponse response = personagemService.atualizaPersonagem(uuid, body);
+            PersonagemResponse response = updatePersonagemService.atualizaPersonagem(uuid, body);
             return ResponseEntity.ok(response);
     }
 
@@ -103,7 +109,7 @@ public class PersonagemController {
             content = @Content) })
     @DeleteMapping("/deletar/{uuid}")
     public ResponseEntity<Void> deletaPersonagem(@PathVariable UUID uuid) {
-            personagemService.deletaPersonagem(uuid);
+            deletePersonagemService.deletaPersonagem(uuid);
             return ResponseEntity.ok().build();
     }
 }
