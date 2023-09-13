@@ -3,6 +3,7 @@ package br.com.batalharepg.avanade.entities;
 import br.com.batalharepg.avanade.dto.response.BatalhaDetalhesResponse;
 import br.com.batalharepg.avanade.dto.response.BatalhaResponse;
 import br.com.batalharepg.avanade.dto.response.BatalhaResumoResponse;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -37,7 +38,7 @@ public class Batalha {
     private Boolean turnoAtualFinalizado = false;
     private Boolean batalhaFinalizada = false;
     private String nomeVencedor = "Batalha em andamento";
-    @OneToMany(mappedBy = "batalha")
+    @OneToMany(mappedBy = "batalha", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private List<DadosTurno> dadosTurnosList;
 
@@ -46,8 +47,6 @@ public class Batalha {
         this.defensor = defensor;
         this.atacanteVenceuIniciativa = atacanteVenceuIniciativa;
     }
-
-
 
     public BatalhaResponse getResponseDto() {
         return new BatalhaResponse(

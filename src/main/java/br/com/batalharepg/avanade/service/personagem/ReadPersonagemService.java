@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class GetPersonagemService {
+public class ReadPersonagemService {
     private final PersonagemRepository personagemRepository;
 
     public List<PersonagemResponse> listaTodosPersonagens() {
