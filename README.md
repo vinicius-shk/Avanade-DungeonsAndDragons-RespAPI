@@ -52,7 +52,7 @@ Siga os passos abaixo para executar o projeto localmente:
 
    Isso inicializará o banco de dados em um contêiner Docker.
    
-7. Inicie o projeto em sua IDE de preferência.
+6. Inicie o projeto em sua IDE de preferência.
 
 </details>
 
