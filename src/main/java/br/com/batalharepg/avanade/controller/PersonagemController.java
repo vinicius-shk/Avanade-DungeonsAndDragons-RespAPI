@@ -5,7 +5,7 @@ import br.com.batalharepg.avanade.dto.request.PersonagemUpdateRequest;
 import br.com.batalharepg.avanade.dto.response.PersonagemResponse;
 import br.com.batalharepg.avanade.service.personagem.CreatePersonagemService;
 import br.com.batalharepg.avanade.service.personagem.DeletePersonagemService;
-import br.com.batalharepg.avanade.service.personagem.GetPersonagemService;
+import br.com.batalharepg.avanade.service.personagem.ReadPersonagemService;
 import br.com.batalharepg.avanade.service.personagem.UpdatePersonagemService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -33,7 +33,7 @@ import java.util.UUID;
 @RequestMapping("/personagem")
 @RequiredArgsConstructor
 public class PersonagemController {
-    private final GetPersonagemService getPersonagemService;
+    private final ReadPersonagemService readPersonagemService;
     private final CreatePersonagemService createPersonagemService;
     private final UpdatePersonagemService updatePersonagemService;
     private final DeletePersonagemService deletePersonagemService;
@@ -60,7 +60,7 @@ public class PersonagemController {
                 array = @ArraySchema(schema = @Schema(implementation = PersonagemResponse.class))) })})
     @GetMapping
     public ResponseEntity<List<PersonagemResponse>> listaTodosPersonagens() {
-        return ResponseEntity.ok(getPersonagemService.listaTodosPersonagens());
+        return ResponseEntity.ok(readPersonagemService.listaTodosPersonagens());
     }
 
     @Operation(summary = "Busca um personagem pelo nome")
@@ -72,7 +72,7 @@ public class PersonagemController {
             content = @Content) })
     @GetMapping("/buscar/nome/{nome}")
     public ResponseEntity<PersonagemResponse> buscaPersonagemPorNome(@PathVariable String nome) {
-            return ResponseEntity.ok(getPersonagemService.buscaPersonagemPorNome(nome));
+            return ResponseEntity.ok(readPersonagemService.buscaPersonagemPorNome(nome));
     }
 
     @Operation(summary = "Busca um personagem pelo id")
@@ -84,7 +84,7 @@ public class PersonagemController {
             content = @Content) })
     @GetMapping("/buscar/id/{uuid}")
     public ResponseEntity<PersonagemResponse> buscaPersonagemPorUuid(@PathVariable UUID uuid) {
-            return ResponseEntity.ok(getPersonagemService.buscaPersonagemPorUuid(uuid));
+            return ResponseEntity.ok(readPersonagemService.buscaPersonagemPorUuid(uuid));
     }
 
     @Operation(summary = "Atualiza um personagem pelo id")

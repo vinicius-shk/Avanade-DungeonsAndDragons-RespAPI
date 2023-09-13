@@ -3,7 +3,10 @@ package br.com.batalharepg.avanade.controller;
 import br.com.batalharepg.avanade.dto.request.CriarBatalhaRequest;
 import br.com.batalharepg.avanade.dto.response.BatalhaDetalhesResponse;
 import br.com.batalharepg.avanade.dto.response.BatalhaResponse;
-import br.com.batalharepg.avanade.service.BatalhaService;
+import br.com.batalharepg.avanade.service.batalha.CreateBatalhaService;
+import br.com.batalharepg.avanade.service.batalha.DeleteBatalhaService;
+import br.com.batalharepg.avanade.service.batalha.ReadBatalhaService;
+import br.com.batalharepg.avanade.service.batalha.UpdateBatalhaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -30,7 +33,10 @@ import java.util.UUID;
 @RequestMapping("/batalha")
 @RequiredArgsConstructor
 public class BatalhaController {
-    private final BatalhaService batalhaService;
+    private final CreateBatalhaService createBatalhaService;
+    private final ReadBatalhaService readBatalhaService;
+    private final UpdateBatalhaService updateBatalhaService;
+    private final DeleteBatalhaService deleteBatalhaService;
 
     @Operation(summary = "Cria uma batalha")
     @ApiResponses(value = {
@@ -43,7 +49,7 @@ public class BatalhaController {
             content = @Content) })
     @PostMapping
     public ResponseEntity<BatalhaResponse> criarBatalha(@Valid @RequestBody CriarBatalhaRequest criarBatalhaRequest) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(batalhaService.criarBatalha(criarBatalhaRequest));
+        return ResponseEntity.status(HttpStatus.CREATED).body(createBatalhaService.criarBatalha(criarBatalhaRequest));
     }
 
     @Operation(summary = "Lista todas as batalhas")
@@ -53,7 +59,7 @@ public class BatalhaController {
                 array = @ArraySchema(schema = @Schema(implementation = BatalhaResponse.class))) })})
     @GetMapping
     public ResponseEntity<List<BatalhaResponse>> buscarTodasBatalhas() {
-        return ResponseEntity.ok(batalhaService.buscarTodasBatalhas());
+        return ResponseEntity.ok(readBatalhaService.buscarTodasBatalhas());
     }
 
     @Operation(summary = "Busca uma batalha por id")
@@ -65,7 +71,7 @@ public class BatalhaController {
             content = @Content) })
     @GetMapping("/{uuid}")
     public ResponseEntity<BatalhaDetalhesResponse> buscarBatalhaPorId(@PathVariable UUID uuid) {
-        return ResponseEntity.ok(batalhaService.buscarBatalhaPorUuid(uuid));
+        return ResponseEntity.ok(readBatalhaService.buscarBatalhaPorUuid(uuid));
     }
 
     @Operation(summary = "Verifica se houve vencedor e encerra batalha ou abre novo turno")
@@ -80,7 +86,7 @@ public class BatalhaController {
             content = @Content) })
     @PatchMapping("/atualizar/{uuid}")
     public ResponseEntity<BatalhaResponse> atualizarTurnoBatalha(@PathVariable UUID uuid) {
-        return ResponseEntity.ok(batalhaService.verificarSeBatalhaAcabou(uuid));
+        return ResponseEntity.ok(updateBatalhaService.verificarSeBatalhaAcabou(uuid));
     }
 
     @Operation(summary = "Deleta uma batalha por id")
@@ -91,7 +97,7 @@ public class BatalhaController {
             content = @Content) })
     @DeleteMapping("/{uuid}")
     public ResponseEntity<Void> deletarBatalha(@PathVariable UUID uuid) {
-        batalhaService.deletarBatalha(uuid);
+        deleteBatalhaService.deletarBatalha(uuid);
         return ResponseEntity.ok().build();
     }
 }
