@@ -4,7 +4,7 @@ import br.com.batalharepg.avanade.dto.request.PersonagemRequest;
 import br.com.batalharepg.avanade.dto.response.PersonagemResponse;
 import br.com.batalharepg.avanade.factory.personagem.TipoClassePersonagem;
 import br.com.batalharepg.avanade.service.personagem.CreatePersonagemService;
-import br.com.batalharepg.avanade.service.personagem.GetPersonagemService;
+import br.com.batalharepg.avanade.service.personagem.ReadPersonagemService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -15,11 +15,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DatabaseInitializer {
     private final CreatePersonagemService createPersonagemService;
-    private final GetPersonagemService getPersonagemService;
+    private final ReadPersonagemService readPersonagemService;
 
     @PostConstruct
     public void init() {
-        List<PersonagemResponse> todosPersonagens = getPersonagemService.listaTodosPersonagens();
+        List<PersonagemResponse> todosPersonagens = readPersonagemService.listaTodosPersonagens();
         List<String> listaNomes = List.of("Aboleth", "Balor", "Denathor");
         List<TipoClassePersonagem> listaTipoClasseMontros = List.of(TipoClassePersonagem.ORC,
             TipoClassePersonagem.GIGANTE, TipoClassePersonagem.LOBISOMEM);

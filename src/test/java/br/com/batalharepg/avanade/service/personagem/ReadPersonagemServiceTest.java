@@ -17,11 +17,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 @SpringBootTest
-class GetPersonagemServiceTest {
+class ReadPersonagemServiceTest {
     @Mock
     private PersonagemRepository personagemRepository;
     @InjectMocks
-    private GetPersonagemService getPersonagemService;
+    private ReadPersonagemService readPersonagemService;
 
     @Test
     void deveriaBuscarTodosOsPersonagensSalvosNoBanco() {
@@ -31,7 +31,7 @@ class GetPersonagemServiceTest {
         Mockito.when(personagemRepository.findAll())
             .thenReturn(List.of(personagem1, personagem2));
 
-        Assertions.assertEquals(2, getPersonagemService.listaTodosPersonagens().size());
+        Assertions.assertEquals(2, readPersonagemService.listaTodosPersonagens().size());
     }
 
     @Test
@@ -41,7 +41,7 @@ class GetPersonagemServiceTest {
         Mockito.when(personagemRepository.findByNomeOrThrowException(ArgumentMatchers.anyString()))
             .thenReturn(personagem);
 
-        Assertions.assertEquals("Barbaro", getPersonagemService.buscaPersonagemPorNome("Barbaro").nome());
+        Assertions.assertEquals("Barbaro", readPersonagemService.buscaPersonagemPorNome("Barbaro").nome());
     }
 
     @Test
@@ -50,7 +50,7 @@ class GetPersonagemServiceTest {
             .thenReturn(Optional.empty());
 
         // Verifica a exceção default lançada pelo método findByNomeOrThrowException do JpaRepositoy
-        Assertions.assertThrows(NullPointerException.class, () -> getPersonagemService.buscaPersonagemPorNome("Nome Inexistente"));
+        Assertions.assertThrows(NullPointerException.class, () -> readPersonagemService.buscaPersonagemPorNome("Nome Inexistente"));
     }
 
     @Test
@@ -60,7 +60,7 @@ class GetPersonagemServiceTest {
         Mockito.when(personagemRepository.findByIdWithExceptionIfNotFound(ArgumentMatchers.any()))
             .thenReturn(personagem);
 
-        Assertions.assertEquals("Barbaro", getPersonagemService.buscaPersonagemPorUuid(personagem.getUuid()).nome());
+        Assertions.assertEquals("Barbaro", readPersonagemService.buscaPersonagemPorUuid(personagem.getUuid()).nome());
     }
 
     @Test
@@ -70,6 +70,6 @@ class GetPersonagemServiceTest {
         Mockito.when(personagemRepository.findById(ArgumentMatchers.any()))
             .thenReturn(Optional.empty());
 
-        Assertions.assertThrows(NullPointerException.class, () -> getPersonagemService.buscaPersonagemPorUuid(randomUuid));
+        Assertions.assertThrows(NullPointerException.class, () -> readPersonagemService.buscaPersonagemPorUuid(randomUuid));
     }
 }
