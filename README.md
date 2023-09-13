@@ -112,7 +112,7 @@ Siga os passos abaixo para executar o projeto localmente:
 <details>
 <summary><b>Cobertura de Testes</b></summary>
 
-![Screenshot from 2023-09-12 17-48-59](https://github.com/vinicius-shk/Avanade-DungeonsAndDragons-RestAPI/assets/102389527/1b2a8807-f43f-456c-89db-5afd9516cccb)
+![Screenshot from 2023-09-13 17-21-34](https://github.com/vinicius-shk/Avanade-DungeonsAndDragons-RestAPI/assets/102389527/486afd1d-dad6-49af-b5ff-d8c2e9ef7938)
 
 </details>
 
